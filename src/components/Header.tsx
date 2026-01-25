@@ -12,6 +12,7 @@ interface HeaderProps {
   dict: {
     nav: {
       home: string;
+      whyNow?: string;
       ministries: string;
       about: string;
       join: string;
@@ -46,6 +47,7 @@ export default function Header({ lang, dict }: HeaderProps) {
 
   const navItems = [
     { href: `/${lang}`, label: dict.nav.home },
+    { href: `/${lang}/why-now`, label: dict.nav.whyNow || 'Why Now' },
     { href: `/${lang}/ministries`, label: dict.nav.ministries },
     { href: `/${lang}/about`, label: dict.nav.about },
     { href: `/${lang}/join`, label: dict.nav.join },
