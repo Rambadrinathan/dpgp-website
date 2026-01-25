@@ -1,54 +1,6 @@
 import { getDictionary, Locale, locales } from '@/dictionaries';
-
-const allMinistries = [
-  { key: 'health', icon: '🏥', category: 'top' },
-  { key: 'education', icon: '📚', category: 'top' },
-  { key: 'home', icon: '🛡️', category: 'top' },
-  { key: 'pwd', icon: '🛣️', category: 'top' },
-  { key: 'panchayat', icon: '🏘️', category: 'top' },
-  { key: 'urban', icon: '🏙️', category: 'top' },
-  { key: 'agriculture', icon: '🌾', category: 'top' },
-  { key: 'food', icon: '🍚', category: 'top' },
-  { key: 'power', icon: '⚡', category: 'top' },
-  { key: 'transport', icon: '🚌', category: 'top' },
-] as const;
-
-const otherMinistries = [
-  { name: 'Higher Education', nameBn: 'উচ্চশিক্ষা', nameHi: 'उच्च शिक्षा', icon: '🎓' },
-  { name: 'Technical Education', nameBn: 'কারিগরি শিক্ষা', nameHi: 'तकनीकी शिक्षा', icon: '⚙️' },
-  { name: 'Finance', nameBn: 'অর্থ', nameHi: 'वित्त', icon: '💰' },
-  { name: 'Labour', nameBn: 'শ্রম', nameHi: 'श्रम', icon: '👷' },
-  { name: 'Industry & Commerce', nameBn: 'শিল্প ও বাণিজ্য', nameHi: 'उद्योग व वाणिज्य', icon: '🏭' },
-  { name: 'MSME & Textiles', nameBn: 'MSME ও বস্ত্র', nameHi: 'MSME व वस्त्र', icon: '🧵' },
-  { name: 'Irrigation & Waterways', nameBn: 'সেচ ও জলপথ', nameHi: 'सिंचाई व जलमार्ग', icon: '💧' },
-  { name: 'Water Resources', nameBn: 'জলসম্পদ', nameHi: 'जल संसाधन', icon: '🚰' },
-  { name: 'Women & Child Development', nameBn: 'নারী ও শিশু উন্নয়ন', nameHi: 'महिला व बाल विकास', icon: '👶' },
-  { name: 'Minority Affairs', nameBn: 'সংখ্যালঘু বিষয়ক', nameHi: 'अल्पसंख्यक मामले', icon: '🤝' },
-  { name: 'Backward Classes Welfare', nameBn: 'অনগ্রসর শ্রেণি কল্যাণ', nameHi: 'पिछड़ा वर्ग कल्याण', icon: '🙏' },
-  { name: 'SC/ST Welfare', nameBn: 'SC/ST কল্যাণ', nameHi: 'SC/ST कल्याण', icon: '🤲' },
-  { name: 'Youth & Sports', nameBn: 'যুব ও ক্রীড়া', nameHi: 'युवा व खेल', icon: '⚽' },
-  { name: 'Information & Culture', nameBn: 'তথ্য ও সংস্কৃতি', nameHi: 'सूचना व संस्कृति', icon: '🎭' },
-  { name: 'Land & Land Reforms', nameBn: 'ভূমি ও ভূমি সংস্কার', nameHi: 'भूमि व भूमि सुधार', icon: '🗺️' },
-  { name: 'Refugee Relief', nameBn: 'শরণার্থী ত্রাণ', nameHi: 'शरणार्थी राहत', icon: '🏠' },
-  { name: 'Disaster Management', nameBn: 'দুর্যোগ ব্যবস্থাপনা', nameHi: 'आपदा प्रबंधन', icon: '🌊' },
-  { name: 'Environment', nameBn: 'পরিবেশ', nameHi: 'पर्यावरण', icon: '🌱' },
-  { name: 'Forests', nameBn: 'বন', nameHi: 'वन', icon: '🌳' },
-  { name: 'Fisheries', nameBn: 'মৎস্য', nameHi: 'मत्स्य', icon: '🐟' },
-  { name: 'Animal Resources', nameBn: 'প্রাণী সম্পদ', nameHi: 'पशु संसाधन', icon: '🐄' },
-  { name: 'Tourism', nameBn: 'পর্যটন', nameHi: 'पर्यटन', icon: '🏖️' },
-  { name: 'Consumer Affairs', nameBn: 'ভোক্তা বিষয়ক', nameHi: 'उपभोक्ता मामले', icon: '🛒' },
-  { name: 'Cooperation', nameBn: 'সমবায়', nameHi: 'सहकारिता', icon: '🤝' },
-  { name: 'Housing', nameBn: 'আবাসন', nameHi: 'आवास', icon: '🏗️' },
-  { name: 'Fire & Emergency Services', nameBn: 'অগ্নি ও জরুরি সেবা', nameHi: 'अग्नि व आपातकालीन सेवाएं', icon: '🚒' },
-  { name: 'Correctional Administration', nameBn: 'সংশোধনমূলক প্রশাসন', nameHi: 'सुधार प्रशासन', icon: '⚖️' },
-  { name: 'Judicial', nameBn: 'বিচার বিভাগীয়', nameHi: 'न्यायिक', icon: '👨‍⚖️' },
-  { name: 'Parliamentary Affairs', nameBn: 'সংসদ বিষয়ক', nameHi: 'संसदीय मामले', icon: '🏛️' },
-  { name: 'Personnel & Admin Reforms', nameBn: 'কর্মী ও প্রশাসনিক সংস্কার', nameHi: 'कार्मिक व प्रशासनिक सुधार', icon: '📋' },
-  { name: 'Planning & Statistics', nameBn: 'পরিকল্পনা ও পরিসংখ্যান', nameHi: 'योजना व सांख्यिकी', icon: '📊' },
-  { name: 'Public Enterprises', nameBn: 'সরকারি উদ্যোগ', nameHi: 'सार्वजनिक उद्यम', icon: '🏢' },
-  { name: 'Self-Help Groups', nameBn: 'স্বনির্ভর গোষ্ঠী', nameHi: 'स्वयं सहायता समूह', icon: '👥' },
-  { name: 'Sundarban Affairs', nameBn: 'সুন্দরবন বিষয়ক', nameHi: 'सुंदरबन मामले', icon: '🐅' },
-];
+import { ministries, MinistryDetail } from '@/data/ministries';
+import Link from 'next/link';
 
 export default async function MinistriesPage({
   params,
@@ -59,100 +11,188 @@ export default async function MinistriesPage({
   const lang = (locales.includes(rawLang as Locale) ? rawLang : 'bn') as Locale;
   const dict = await getDictionary(lang);
 
-  const getOtherMinistryName = (ministry: typeof otherMinistries[0]) => {
-    if (lang === 'bn') return ministry.nameBn;
-    if (lang === 'hi') return ministry.nameHi;
-    return ministry.name;
-  };
+  const getText = (obj: { en: string; hi: string; bn: string }) => obj[lang];
+  const getArray = (obj: { en: string[]; hi: string[]; bn: string[] }) => obj[lang];
 
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-900 to-blue-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{dict.ministries.title}</h1>
-          <p className="text-xl text-blue-200 max-w-2xl mx-auto">{dict.ministries.subtitle}</p>
+      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-400 rounded-full blur-[100px]" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">{dict.ministries.title}</h1>
+          <p className="text-xl text-blue-200 max-w-3xl mx-auto">{dict.ministries.subtitle}</p>
         </div>
       </section>
 
-      {/* Top 10 Ministries */}
-      <section className="bg-white py-16">
+      {/* Quick Nav */}
+      <section className="bg-white py-8 border-b sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-8">
-            {dict.ministries.topMinistries}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {allMinistries.map((ministry) => {
-              const ministryData = dict.ministriesList[ministry.key];
-              return (
-                <div
-                  key={ministry.key}
-                  className="group p-6 bg-gray-50 rounded-2xl hover:bg-blue-900 transition-all cursor-pointer border border-gray-100 hover:border-blue-900"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="text-4xl">{ministry.icon}</div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-blue-900 group-hover:text-white transition-colors mb-2">
-                        {ministryData.name}
-                      </h3>
-                      <p className="text-gray-600 group-hover:text-blue-200 transition-colors">
-                        {ministryData.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Other Departments */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-8">
-            {lang === 'bn' ? 'অন্যান্য দপ্তর' : lang === 'hi' ? 'अन्य विभाग' : 'Other Departments'}
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {otherMinistries.map((ministry, index) => (
-              <div
-                key={index}
-                className="p-4 bg-white rounded-xl hover:shadow-lg transition-all cursor-pointer text-center"
+          <div className="flex gap-4 overflow-x-auto pb-2">
+            {ministries.filter(m => m.category === 'top10').map((ministry) => (
+              <a
+                key={ministry.id}
+                href={`#${ministry.id}`}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full hover:bg-orange-100 hover:text-orange-600 transition-colors whitespace-nowrap text-sm font-medium"
               >
-                <div className="text-2xl mb-2">{ministry.icon}</div>
-                <h3 className="font-medium text-sm text-gray-700">
-                  {getOtherMinistryName(ministry)}
-                </h3>
-              </div>
+                <span>{ministry.icon}</span>
+                <span>{getText(ministry.name)}</span>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Info Box */}
-      <section className="bg-orange-50 py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-orange-500">
-            <h3 className="text-xl font-bold text-blue-900 mb-4">
-              {lang === 'bn' ? 'কেন মন্ত্রণালয় জানা গুরুত্বপূর্ণ?' : lang === 'hi' ? 'मंत्रालयों को जानना क्यों महत्वपूर्ण है?' : 'Why is knowing ministries important?'}
-            </h3>
-            <p className="text-gray-600 mb-4">
-              {lang === 'bn'
-                ? 'আপনি যখন ভোট দেন, আপনি আসলে এই মন্ত্রণালয়গুলো কে চালাবে তা নির্ধারণ করেন। প্রতিটি মন্ত্রণালয় আপনার দৈনন্দিন জীবনকে সরাসরি প্রভাবিত করে - আপনার সন্তানের স্কুল থেকে আপনার চলার রাস্তা পর্যন্ত।'
-                : lang === 'hi'
-                ? 'जब आप वोट देते हैं, तो आप वास्तव में यह तय करते हैं कि इन मंत्रालयों को कौन चलाएगा। प्रत्येक मंत्रालय आपके दैनिक जीवन को सीधे प्रभावित करता है - आपके बच्चे के स्कूल से लेकर आपकी यात्रा की सड़कों तक।'
-                : 'When you vote, you are actually deciding who will run these ministries. Each ministry directly affects your daily life - from your child\'s school to the roads you travel.'}
-            </p>
-            <p className="text-orange-600 font-semibold">
-              {lang === 'bn'
-                ? 'জানুন, প্রশ্ন করুন, সঠিক প্রার্থী বাছুন।'
-                : lang === 'hi'
-                ? 'जानें, सवाल करें, सही उम्मीदवार चुनें।'
-                : 'Learn, question, choose the right candidate.'}
-            </p>
+      {/* Detailed Ministry Sections */}
+      <section className="bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">
+            {dict.ministries.topMinistries}
+          </h2>
+
+          <div className="space-y-16">
+            {ministries.filter(m => m.category === 'top10').map((ministry, index) => (
+              <MinistrySection
+                key={ministry.id}
+                ministry={ministry}
+                lang={lang}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Call to Action */}
+      <section className="bg-gradient-to-r from-orange-500 to-orange-600 py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            {lang === 'bn' ? 'জানুন, প্রশ্ন করুন, সঠিক প্রার্থী বাছুন' : lang === 'hi' ? 'जानें, सवाल करें, सही उम्मीदवार चुनें' : 'Learn, Question, Choose the Right Candidate'}
+          </h2>
+          <p className="text-orange-100 text-lg mb-8">
+            {lang === 'bn'
+              ? 'আপনার এলাকার প্রার্থীকে এই প্রশ্নগুলো করুন। তাদের উত্তর থেকে বুঝুন তারা কতটা যোগ্য।'
+              : lang === 'hi'
+              ? 'अपने क्षेत्र के उम्मीदवार से ये सवाल पूछें। उनके जवाबों से समझें वे कितने योग्य हैं।'
+              : 'Ask these questions to candidates in your area. Understand their capability from their answers.'}
+          </p>
+          <Link
+            href={`/${lang}/join`}
+            className="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-500 font-bold rounded-full hover:bg-gray-100 transition-all"
+          >
+            {lang === 'bn' ? 'আন্দোলনে যোগ দিন' : lang === 'hi' ? 'आंदोलन में शामिल हों' : 'Join the Movement'}
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MinistrySection({ ministry, lang, index }: { ministry: MinistryDetail; lang: Locale; index: number }) {
+  const getText = (obj: { en: string; hi: string; bn: string }) => obj[lang];
+  const getArray = (obj: { en: string[]; hi: string[]; bn: string[] }) => obj[lang];
+
+  return (
+    <div id={ministry.id} className="scroll-mt-32">
+      <div className={`bg-white rounded-3xl shadow-xl overflow-hidden ${index % 2 === 0 ? '' : ''}`}>
+        {/* Ministry Header */}
+        <div className="bg-gradient-to-r from-blue-900 to-blue-800 p-8 text-white">
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-5xl">{ministry.icon}</span>
+            <div>
+              <h3 className="text-3xl font-bold">{getText(ministry.name)}</h3>
+              <p className="text-blue-200 text-lg mt-1">{getText(ministry.shortDesc)}</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-6 mt-6">
+            <div className="bg-white/10 rounded-xl px-4 py-2">
+              <span className="text-blue-200 text-sm">
+                {lang === 'bn' ? 'বাজেট' : lang === 'hi' ? 'बजट' : 'Budget'}
+              </span>
+              <p className="text-white font-bold">{ministry.budget}</p>
+            </div>
+            <div className="bg-white/10 rounded-xl px-4 py-2">
+              <span className="text-blue-200 text-sm">
+                {lang === 'bn' ? 'কর্মচারী' : lang === 'hi' ? 'कर्मचारी' : 'Employees'}
+              </span>
+              <p className="text-white font-bold">{ministry.employees}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-8">
+          {/* Key Statistics */}
+          <div className="mb-10">
+            <h4 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">📊</span>
+              {lang === 'bn' ? 'গুরুত্বপূর্ণ তথ্য' : lang === 'hi' ? 'महत्वपूर्ण आंकड़े' : 'Key Statistics'}
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {getArray(ministry.keyStats).map((stat, i) => (
+                <div key={i} className="flex items-start gap-3 p-4 bg-blue-50 rounded-xl">
+                  <span className="text-blue-600 mt-1">•</span>
+                  <span className="text-gray-700">{stat}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* How It Impacts You */}
+          <div className="mb-10">
+            <h4 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">👤</span>
+              {lang === 'bn' ? 'আপনার জীবনে প্রভাব' : lang === 'hi' ? 'आपके जीवन पर प्रभाव' : 'How It Impacts Your Life'}
+            </h4>
+            <div className="space-y-3">
+              {getArray(ministry.impact).map((impact, i) => (
+                <div key={i} className="flex items-start gap-3 p-4 bg-orange-50 rounded-xl border-l-4 border-orange-400">
+                  <span className="text-orange-500 font-bold">{i + 1}.</span>
+                  <span className="text-gray-700">{impact}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Government Schemes */}
+          <div className="mb-10">
+            <h4 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">🎯</span>
+              {lang === 'bn' ? 'সরকারি প্রকল্প' : lang === 'hi' ? 'सरकारी योजनाएं' : 'Government Schemes'}
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {ministry.schemes.map((scheme, i) => (
+                <div key={i} className="p-5 bg-green-50 rounded-xl border border-green-200">
+                  <h5 className="font-bold text-green-800 text-lg mb-2">{scheme.name}</h5>
+                  <p className="text-gray-600">{getText(scheme.desc)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Questions to Ask */}
+          <div>
+            <h4 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">❓</span>
+              {lang === 'bn' ? 'প্রার্থীকে এই প্রশ্ন করুন' : lang === 'hi' ? 'उम्मीदवार से ये सवाल पूछें' : 'Questions to Ask Candidates'}
+            </h4>
+            <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-6 border border-red-100">
+              <ul className="space-y-4">
+                {getArray(ministry.questions).map((question, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      {i + 1}
+                    </span>
+                    <span className="text-gray-800 font-medium">{question}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
