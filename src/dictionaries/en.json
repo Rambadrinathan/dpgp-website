@@ -9,7 +9,8 @@
     "ministries": "Ministries",
     "about": "About",
     "join": "Join Us",
-    "resources": "Resources"
+    "resources": "Resources",
+    "donate": "Crowdfunding"
   },
   "hero": {
     "tagline": "My Constituency, My Minister",
@@ -128,5 +129,116 @@
     "joinNow": "Join Now",
     "watchVideo": "Watch Videos",
     "download": "Download Resources"
+  },
+  "donate": {
+    "badge": "Voter Education Initiative",
+    "heroTitle": "Power Democracy with Your Support",
+    "heroSubtitle": "Help educate 1.5 crore voters in West Bengal",
+    "heroDescription": "Join the historic AI-powered mass education campaign. Your contribution directly funds voter awareness - teaching citizens how democracy actually works, not who to vote for.",
+    "donateNow": "Donate Now",
+    "impactFormula": "₹10 = 1 Voter Educated",
+
+    "whatIsTitle": "What is DPGP?",
+    "whatIsSubtitle": "DPGP (Dharmic Political Governance Project) is India's first AI-powered civic education campaign, transforming how voters understand democracy.",
+    "coreMessage": "Our Core Message",
+    "taglineBengali": "দল নয়, মন্ত্রী চাই",
+    "taglineEnglish": "Not Party, We Want Ministers",
+    "coreExplanation": "We teach voters a revolutionary truth: Parties don't run hospitals or build roads — Ministers do. A state is run by its Council of Ministers, not by party symbols. When you vote, you're actually selecting who will BE your minister. This changes everything about how you should evaluate candidates.",
+
+    "keyPoint1Title": "Ministers Run the State",
+    "keyPoint1": "44 Ministers control your daily life - from healthcare to roads to education. Your MLA could become one of them.",
+    "keyPoint2Title": "Evaluate Candidates, Not Parties",
+    "keyPoint2": "Ask: Is this candidate capable of being a minister? Do they have the competence and character to govern?",
+    "keyPoint3Title": "Informed Voting = Better Governance",
+    "keyPoint3": "When voters demand ministerial quality, parties are forced to field better candidates. Democracy improves.",
+
+    "whyMinistersTitle": "Why Ministers Matter",
+    "whyMinistersSubtitle": "Understanding the difference between voting for parties and evaluating ministers",
+    "wrongWay": "The Current Way",
+    "wrongWayDesc": "Voters look at party symbols, listen to rallies, vote based on loyalty or anger. They don't know what their MLA will actually DO if elected. Result: Incompetent people become ministers.",
+    "rightWay": "The DPGP Way",
+    "rightWayDesc": "Voters learn what each ministry does, understand how governance works, evaluate if their candidate could be a competent minister. Result: Better ministers, better governance.",
+    "paradigmQuote": "Parties don't run hospitals or build roads — Ministers do. So evaluate ministers, not party symbols.",
+
+    "aiAdvantageTitle": "Why AI Changes Everything",
+    "aiAdvantageSubtitle": "For the first time, technology makes mass voter education affordable",
+    "traditionalMethod": "Traditional Method",
+    "aiMethod": "DPGP AI Method",
+    "perVoter": "per voter reached",
+    "traditional1": "Physical rallies and meetings",
+    "traditional2": "Limited reach and scalability",
+    "traditional3": "One-size-fits-all messaging",
+    "ai1": "WhatsApp, YouTube, Voice messages",
+    "ai2": "Reach 1.5 crore voters",
+    "ai3": "Personalized, constituency-specific",
+    "savings": "More Efficient",
+
+    "chooseTierTitle": "Choose Your Impact",
+    "chooseTierSubtitle": "Every rupee educates voters. Every donation strengthens democracy.",
+    "votersEducated": "voters educated",
+    "tiers": {
+      "tier1": "Digital thank you badge",
+      "tier2": "Name on donor wall",
+      "tier3": "Exclusive video from Mahacharya",
+      "tier4": "Signed digital certificate",
+      "tier5": "Video call with team",
+      "tier6": "Recognition in campaign materials"
+    },
+
+    "scanToDonate": "Scan to Donate",
+    "qrPlaceholder": "QR Code",
+    "scanInstructions": "Scan with any UPI app to donate instantly",
+    "donationDetails": "Donation Details",
+    "donateToLabel": "Donate to",
+    "taxBenefit": "80G Tax Benefit Available",
+    "taxBenefitDesc": "All donations are eligible for tax deduction under Section 80G",
+    "websiteLabel": "Campaign Website",
+    "phoneLabel": "Contact Number",
+
+    "sponsorTitle": "Corporate & Foundation Partnerships",
+    "sponsorSubtitle": "For organizations seeking larger impact. Your brand associated with democratic empowerment, not politics.",
+    "mostPopular": "Flagship Partner",
+    "slotsAvailable": "slots available",
+    "sponsorTiers": {
+      "title": { "name": "Title Sponsor", "desc": "Primary branding on all campaign materials, board seat, press mentions" },
+      "pillar": { "name": "Pillar Sponsor", "desc": "Logo on all videos, dedicated impact report, press release" },
+      "ministry": { "name": "Ministry Sponsor", "desc": "Adopt one ministry vertical, logo on related content" },
+      "content": { "name": "Content Partner", "desc": "Logo rotation, social media mentions, quarterly updates" },
+      "friend": { "name": "Friend of Democracy", "desc": "Donor wall recognition, certificate, launch event invite" }
+    },
+    "contactForSponsorship": "Contact for Partnership",
+
+    "aboutTitle": "Who We Are",
+    "aboutSubtitle": "A non-profit initiative dedicated to strengthening Indian democracy through civic education",
+    "founderTitle": "Founder & Vision",
+    "founderRole": "Founder, KarmYog for 21st Century",
+    "founderBio": "Mass Education & Culture Change Pioneer with 30+ years of proven expertise in using media and technology for large-scale behavior change. Creator of the OmniDEL Framework and pioneer in AI for Education.",
+    "trackRecord": "Proven Track Record",
+    "track1": "Safe Drive Save Life Movement - Transformed road safety culture in Kolkata",
+    "track2": "Mass Music Education Programs - Scaled to thousands across Bengal",
+    "track3": "IIT Kharagpur Durga Puja 2025 - One of the largest Durga Pujas",
+    "track4": "Durga Puja 2025 Digital Campaign - 3 million+ views on social media",
+
+    "orgTitle": "The Organization",
+    "orgDescription": "KarmYog for 21st Century Foundation is a registered non-profit dedicated to applying timeless principles of dharma and karma to contemporary challenges. We believe good governance starts with educated citizens.",
+    "registered": "Registered Non-Profit Organization",
+    "taxExempt": "80G Certified - Tax Deductible Donations",
+    "nonPartisan": "Strictly Non-Partisan - No Political Affiliation",
+    "contactUs": "Contact Us",
+
+    "faqTitle": "Frequently Asked Questions",
+    "faqs": {
+      "q1": { "q": "Is DPGP affiliated with any political party?", "a": "Absolutely not. DPGP is strictly non-partisan. We educate voters about how democracy works, not who to vote for. We receive no funding from any political party and maintain complete independence." },
+      "q2": { "q": "How will my donation be used?", "a": "Every rupee is tracked publicly. Approximately: 60% on content creation (AI tools, video production), 25% on distribution (WhatsApp API, social ads), 10% on operations, 5% on reporting and transparency." },
+      "q3": { "q": "Is my donation tax-deductible?", "a": "Yes! KarmYog for 21st Century Foundation has 80G certification. You'll receive an official receipt for tax purposes within 7 working days." },
+      "q4": { "q": "Why focus on West Bengal?", "a": "We believe in proving concepts before scaling. Bengal 2026 is our pilot. Success here creates the blueprint for India's 2029 general elections and beyond." },
+      "q5": { "q": "What if the funding goal isn't met?", "a": "We work in phases. Even partial funding allows partial reach. All funds raised will be deployed transparently with public dashboards showing exact utilization." },
+      "q6": { "q": "Can I contribute beyond money?", "a": "Yes! Share this campaign, volunteer your time, or offer skills (video editing, content writing, technology). Email us at volunteer@dpgp.in" }
+    },
+
+    "finalCtaTitle": "Every Voter Matters. Every Rupee Counts.",
+    "finalCtaSubtitle": "Join thousands of Indians strengthening democracy through education. Your support today shapes Bengal's governance tomorrow.",
+    "learnMore": "Learn More About DPGP",
+    "everyRupee": "100% of donations go to voter education. Transparent accounting. Public dashboards."
   }
 }

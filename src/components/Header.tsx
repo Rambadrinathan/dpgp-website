@@ -16,6 +16,7 @@ interface HeaderProps {
       ministries: string;
       about: string;
       join: string;
+      donate?: string;
     };
   };
 }
@@ -53,6 +54,8 @@ export default function Header({ lang, dict }: HeaderProps) {
     { href: `/${lang}/join`, label: dict.nav.join },
   ];
 
+  const donateLabel = dict.nav.donate || 'Donate';
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled
@@ -79,7 +82,7 @@ export default function Header({ lang, dict }: HeaderProps) {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -94,6 +97,12 @@ export default function Header({ lang, dict }: HeaderProps) {
                 )}
               </Link>
             ))}
+            <Link
+              href={`/${lang}/donate`}
+              className="ml-2 px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-full transition-all duration-300 hover:scale-105 shadow-md"
+            >
+              {donateLabel}
+            </Link>
           </div>
 
           {/* Language Switcher */}
@@ -132,7 +141,7 @@ export default function Header({ lang, dict }: HeaderProps) {
 
         {/* Mobile Navigation */}
         <div className={`md:hidden overflow-hidden transition-all duration-300 ${
-          mobileMenuOpen ? 'max-h-64 pb-4' : 'max-h-0'
+          mobileMenuOpen ? 'max-h-80 pb-4' : 'max-h-0'
         }`}>
           <div className="pt-2 border-t border-gray-100">
             {navItems.map((item) => (
@@ -149,6 +158,13 @@ export default function Header({ lang, dict }: HeaderProps) {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href={`/${lang}/donate`}
+              className="block mt-2 mx-4 py-3 px-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-lg text-center transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {donateLabel}
+            </Link>
           </div>
         </div>
       </nav>
