@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "title": "DPGP - Not Party, We Want Ministers",
+    "description": "100-Day Voter Education Campaign for West Bengal Assembly Elections 2026"
+  },
+  "nav": {
+    "home": "Home",
+    "ministries": "Ministries",
+    "about": "About",
+    "join": "Join Us",
+    "resources": "Resources"
+  },
+  "hero": {
+    "tagline": "Not Party, We Want Ministers",
+    "taglineBengali": "দল নয়, মন্ত্রী চাই",
+    "subtitle": "100-Day AI-Powered Mass Education Campaign",
+    "description": "Transforming West Bengal's political culture from party-centric voting to minister-centric evaluation. Empowering 10 crore citizens to elect a competent Council of Ministers.",
+    "cta": "Learn About Ministries",
+    "ctaSecondary": "Join the Movement"
+  },
+  "mission": {
+    "title": "Our Mission",
+    "point1Title": "Educate",
+    "point1": "Teach voters about the actual governance structure: 294 MLAs elect a Council of Ministers who RUN the state",
+    "point2Title": "Inform",
+    "point2": "Explain each ministry's role, responsibilities, budget allocations, and performance metrics",
+    "point3Title": "Empower",
+    "point3": "Enable voters to evaluate candidates based on competence and character, not just party symbols"
+  },
+  "stats": {
+    "title": "The Reality",
+    "stat1": "44",
+    "stat1Label": "Ministers who control your daily life",
+    "stat2": "294",
+    "stat2Label": "MLAs in West Bengal Assembly",
+    "stat3": "100",
+    "stat3Label": "Days to transform voter awareness"
+  },
+  "ministries": {
+    "title": "Know Your Ministries",
+    "subtitle": "The Council of Ministers controls everything from your child's education to the roads you travel. Learn what each ministry does.",
+    "viewAll": "View All 44 Ministries",
+    "topMinistries": "Top 10 Ministries That Impact Your Daily Life"
+  },
+  "ministriesList": {
+    "health": {
+      "name": "Health & Family Welfare",
+      "description": "Hospitals, doctors, medicines, ambulances, vaccination programs"
+    },
+    "education": {
+      "name": "School Education",
+      "description": "Schools, teachers, midday meals, exams, educational infrastructure"
+    },
+    "home": {
+      "name": "Home & Hill Affairs",
+      "description": "Police, law & order, women's safety, crime prevention"
+    },
+    "pwd": {
+      "name": "Public Works (PWD)",
+      "description": "Roads, bridges, government buildings, infrastructure"
+    },
+    "panchayat": {
+      "name": "Panchayat & Rural Development",
+      "description": "MGNREGA, rural schemes, local governance, village development"
+    },
+    "urban": {
+      "name": "Urban Development",
+      "description": "Municipal services, water, sanitation, urban planning"
+    },
+    "agriculture": {
+      "name": "Agriculture",
+      "description": "Farmers, MSP, seeds, fertilizers, crop insurance"
+    },
+    "food": {
+      "name": "Food & Supplies",
+      "description": "Ration, PDS, fair price shops, food security"
+    },
+    "power": {
+      "name": "Power & Energy",
+      "description": "Electricity, bills, connections, power supply"
+    },
+    "transport": {
+      "name": "Transport",
+      "description": "Buses, licenses, permits, road safety"
+    }
+  },
+  "about": {
+    "title": "About DPGP",
+    "subtitle": "Dharmic Political Governance Project",
+    "mission": "Our Vision",
+    "missionText": "Transform West Bengal's political culture from party-centric voting to minister-centric evaluation, empowering citizens to elect a competent Council of Ministers who will govern with dharma (righteousness).",
+    "founder": "Leadership",
+    "founderName": "Mahacharya Sourabh J Sarkar",
+    "founderTitle": "Founder, KarmYog for 21st Century",
+    "founderBio": "Mass Education & Culture Change Pioneer with 30+ years of proven expertise in using media and technology for large-scale behavior change. Creator of the OmniDEL Framework and pioneer in AI for Education.",
+    "cofounder": "Mr. Ram Badrinathan",
+    "cofounderTitle": "AI for Education Expert",
+    "cofounderBio": "Deep experience in leveraging AI for scalable education delivery. Technology strategist for mass education programs.",
+    "track": "Proven Track Record",
+    "track1": "Safe Drive Save Life Movement - Transformed road safety culture in Kolkata",
+    "track2": "Mass Music Education Programs - Scaled to thousands across Bengal",
+    "track3": "IIT Kharagpur Durga Puja 2025 - One of the largest Durga Pujas",
+    "track4": "Durga Puja 2025 Digital Campaign - 3 million+ views on social media"
+  },
+  "join": {
+    "title": "Join the Movement",
+    "subtitle": "Be part of the historic AI-powered Mass Education Campaign",
+    "volunteer": "Become a Volunteer",
+    "volunteerDesc": "Help spread voter awareness in your constituency. Share content, organize discussions, educate your community.",
+    "amplifier": "Become an Amplifier",
+    "amplifierDesc": "Commit to sharing our daily content to 5+ WhatsApp groups. Just 5 minutes a day can reach thousands.",
+    "contact": "Contact Us",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "facebook": "Facebook",
+    "instagram": "Instagram"
+  },
+  "footer": {
+    "tagline": "Information for you. Decision is yours.",
+    "taglineBengali": "তথ্য জানুন। সিদ্ধান্ত নিন।",
+    "disclaimer": "DPGP is not affiliated with any political party or candidate. We only provide information - the decision is yours.",
+    "copyright": "2026 DPGP - Dharmic Political Governance Project. An initiative of KarmYog for 21st Century."
+  },
+  "cta": {
+    "learnMore": "Learn More",
+    "joinNow": "Join Now",
+    "watchVideo": "Watch Videos",
+    "download": "Download Resources"
+  }
+}
