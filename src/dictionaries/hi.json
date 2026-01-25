@@ -187,7 +187,8 @@
 
     "scanToDonate": "स्कैन करके दान करें",
     "qrPlaceholder": "QR कोड",
-    "scanInstructions": "किसी भी UPI ऐप से स्कैन करके तुरंत दान करें",
+    "downloadQR": "QR कोड डाउनलोड करें",
+    "scanInstructions": "किसी भी UPI ऐप (GPay, PhonePe, Paytm, BHIM) से स्कैन करके तुरंत दान करें",
     "donationDetails": "दान विवरण",
     "donateToLabel": "दान करें",
     "taxBenefit": "80G कर लाभ उपलब्ध",

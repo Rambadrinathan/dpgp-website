@@ -187,7 +187,8 @@
 
     "scanToDonate": "স্ক্যান করে দান করুন",
     "qrPlaceholder": "QR কোড",
-    "scanInstructions": "যেকোনো UPI অ্যাপ দিয়ে স্ক্যান করে তাৎক্ষণিক দান করুন",
+    "downloadQR": "QR কোড ডাউনলোড করুন",
+    "scanInstructions": "যেকোনো UPI অ্যাপ (GPay, PhonePe, Paytm, BHIM) দিয়ে স্ক্যান করে তাৎক্ষণিক দান করুন",
     "donationDetails": "দানের বিবরণ",
     "donateToLabel": "দান করুন",
     "taxBenefit": "80G কর সুবিধা উপলব্ধ",

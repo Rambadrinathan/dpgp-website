@@ -187,7 +187,8 @@
 
     "scanToDonate": "Scan to Donate",
     "qrPlaceholder": "QR Code",
-    "scanInstructions": "Scan with any UPI app to donate instantly",
+    "downloadQR": "Download QR Code",
+    "scanInstructions": "Scan with any UPI app (GPay, PhonePe, Paytm, BHIM) to donate instantly",
     "donationDetails": "Donation Details",
     "donateToLabel": "Donate to",
     "taxBenefit": "80G Tax Benefit Available",

@@ -253,11 +253,27 @@ export default async function DonatePage({
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-blue-900 mb-6">{d.scanToDonate}</h3>
-                <div className="bg-gray-100 w-64 h-64 mx-auto rounded-2xl flex items-center justify-center border-4 border-dashed border-gray-300">
-                  <div className="text-center text-gray-500">
-                    <div className="text-6xl mb-2">📱</div>
-                    <p>{d.qrPlaceholder}</p>
-                  </div>
+                <div className="bg-white w-72 mx-auto rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+                  <object
+                    data="/images/karmyog-qr-code.pdf"
+                    type="application/pdf"
+                    className="w-full h-80"
+                  >
+                    <div className="p-4 text-center">
+                      <a
+                        href="/images/karmyog-qr-code.pdf"
+                        target="_blank"
+                        className="text-blue-600 hover:text-blue-800 underline"
+                      >
+                        {d.downloadQR}
+                      </a>
+                    </div>
+                  </object>
+                </div>
+                <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                  <p className="text-sm text-gray-600 mb-1">UPI ID:</p>
+                  <p className="text-lg font-bold text-blue-900 font-mono">230608554002875@cnrb</p>
+                  <p className="text-xs text-gray-500 mt-1">Canara Bank</p>
                 </div>
                 <p className="text-gray-600 mt-4">{d.scanInstructions}</p>
               </div>
