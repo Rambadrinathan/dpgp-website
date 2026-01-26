@@ -1,28 +1,75 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_REPO = 'Rambadrinathan/dpgp-website';
+const GITHUB_BRANCH = 'staging'; // Always commit to staging
+
 // Map section IDs to their page files
 const SECTION_FILE_MAP: Record<string, string> = {
-  // Home page sections
   'home-hero': 'src/app/[lang]/page.tsx',
   'home-stats': 'src/app/[lang]/page.tsx',
   'home-mission': 'src/app/[lang]/page.tsx',
   'home-ministries': 'src/app/[lang]/page.tsx',
   'home-quote': 'src/app/[lang]/page.tsx',
   'home-cta': 'src/app/[lang]/page.tsx',
-  // Other pages
   'about': 'src/app/[lang]/about/page.tsx',
   'join': 'src/app/[lang]/join/page.tsx',
   'donate': 'src/app/[lang]/donate/page.tsx',
   'ministries': 'src/app/[lang]/ministries/page.tsx',
   'why-now': 'src/app/[lang]/why-now/page.tsx',
 };
+
+// Get file content from GitHub
+async function getFileFromGitHub(filePath: string): Promise<{ content: string; sha: string }> {
+  const response = await fetch(
+    `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}?ref=${GITHUB_BRANCH}`,
+    {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch file: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  const content = Buffer.from(data.content, 'base64').toString('utf-8');
+  return { content, sha: data.sha };
+}
+
+// Commit file to GitHub
+async function commitToGitHub(filePath: string, content: string, sha: string, message: string): Promise<void> {
+  const response = await fetch(
+    `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message,
+        content: Buffer.from(content).toString('base64'),
+        sha,
+        branch: GITHUB_BRANCH,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(`Failed to commit: ${error.message || response.statusText}`);
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,37 +79,38 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
     }
 
+    if (!GITHUB_TOKEN) {
+      return NextResponse.json({ error: 'GitHub token not configured' }, { status: 500 });
+    }
+
     // Find the source file for this section
-    const relativeFilePath = SECTION_FILE_MAP[sectionId.toLowerCase()] || SECTION_FILE_MAP[sectionId];
-    if (!relativeFilePath) {
+    const filePath = SECTION_FILE_MAP[sectionId.toLowerCase()] || SECTION_FILE_MAP[sectionId];
+    if (!filePath) {
       return NextResponse.json({
         error: `Unknown section: ${sectionId}. Available: ${Object.keys(SECTION_FILE_MAP).join(', ')}`
       }, { status: 400 });
     }
 
-    const filePath = path.join(process.cwd(), relativeFilePath);
-
-    // Read current source code
+    // Get current file from GitHub
     let currentCode: string;
+    let fileSha: string;
     try {
-      currentCode = await fs.readFile(filePath, 'utf-8');
-    } catch {
+      const file = await getFileFromGitHub(filePath);
+      currentCode = file.content;
+      fileSha = file.sha;
+    } catch (error) {
       return NextResponse.json({
-        error: `Could not read file: ${relativeFilePath}`
+        error: `Could not read file from GitHub: ${filePath}`
       }, { status: 404 });
     }
 
-    // Extract the section content using ReviewableSection markers
+    // Extract section content for context
     const sectionRegex = new RegExp(
       `<ReviewableSection[^>]*sectionId=["']${sectionId}["'][^>]*>([\\s\\S]*?)</ReviewableSection>`,
       'i'
     );
     const sectionMatch = currentCode.match(sectionRegex);
-
-    let sectionContent = '';
-    if (sectionMatch) {
-      sectionContent = sectionMatch[1];
-    }
+    const sectionContent = sectionMatch ? sectionMatch[1].slice(0, 2000) : '';
 
     const systemPrompt = `You are an expert React/TypeScript developer editing a Next.js website for DPGP (Dharmic Political Governance Project) - a civic education initiative for West Bengal.
 
@@ -76,7 +124,7 @@ CRITICAL RULES:
 7. The code must be valid TypeScript/TSX that compiles without errors
 8. Keep ReviewableSection wrappers intact
 
-You are editing: ${relativeFilePath}
+You are editing: ${filePath}
 Target section: ${sectionId}`;
 
     const userPrompt = `User request: "${prompt}"
@@ -84,7 +132,7 @@ Target section: ${sectionId}`;
 Current file content:
 ${currentCode}
 
-${sectionContent ? `\nThe section "${sectionId}" currently contains:\n${sectionContent.slice(0, 2000)}...\n` : ''}
+${sectionContent ? `\nThe section "${sectionId}" currently contains:\n${sectionContent}...\n` : ''}
 
 Return the COMPLETE updated file with the requested changes applied to the "${sectionId}" section:`;
 
@@ -105,13 +153,18 @@ Return the COMPLETE updated file with the requested changes applied to the "${se
     }
 
     if (mode === 'apply') {
-      // Write the changes to the file
-      await fs.writeFile(filePath, newCode, 'utf-8');
+      // Commit to GitHub
+      await commitToGitHub(
+        filePath,
+        newCode,
+        fileSha,
+        `AI Edit: ${prompt.slice(0, 50)}${prompt.length > 50 ? '...' : ''}`
+      );
 
       return NextResponse.json({
         success: true,
-        message: 'Changes applied! Page will refresh automatically.',
-        filePath: relativeFilePath,
+        message: 'Changes committed to GitHub! Vercel will auto-deploy in ~30 seconds.',
+        filePath,
         sectionId,
         applied: true,
       });
@@ -120,7 +173,7 @@ Return the COMPLETE updated file with the requested changes applied to the "${se
       return NextResponse.json({
         success: true,
         suggestion: newCode,
-        filePath: relativeFilePath,
+        filePath,
         sectionId,
         applied: false,
       });
