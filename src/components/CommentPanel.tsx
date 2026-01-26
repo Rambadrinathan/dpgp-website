@@ -13,11 +13,13 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
   const { getCommentsForSection, addComment, deleteComment, toggleResolved, isReviewMode } = useComments();
   const [isOpen, setIsOpen] = useState(false);
   const [newComment, setNewComment] = useState('');
+  const [showHistory, setShowHistory] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const comments = getCommentsForSection(sectionId);
-  const unresolvedCount = comments.filter((c) => !c.resolved).length;
+  const activeComments = comments.filter((c) => !c.resolved);
+  const resolvedComments = comments.filter((c) => c.resolved);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -76,9 +78,9 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
         </svg>
         <span className="hidden sm:inline">Review</span>
-        {unresolvedCount > 0 && (
+        {activeComments.length > 0 && (
           <span className="bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-            {unresolvedCount}
+            {activeComments.length}
           </span>
         )}
       </button>
@@ -89,37 +91,30 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-3 text-white">
             <h3 className="font-semibold text-sm">{sectionName}</h3>
-            <p className="text-xs text-blue-100">{comments.length} comments</p>
+            <p className="text-xs text-blue-100">
+              {activeComments.length} active • {resolvedComments.length} resolved
+            </p>
           </div>
 
-          {/* Comments List */}
-          <div className="max-h-64 overflow-y-auto">
-            {comments.length === 0 ? (
-              <div className="px-4 py-6 text-center text-gray-500 text-sm">
-                No comments yet. Add feedback below.
+          {/* Active Comments */}
+          <div className="max-h-48 overflow-y-auto">
+            {activeComments.length === 0 ? (
+              <div className="px-4 py-4 text-center text-gray-500 text-sm">
+                No active feedback. Add comments below.
               </div>
             ) : (
               <div className="divide-y divide-gray-100">
-                {comments.map((comment) => (
-                  <div
-                    key={comment.id}
-                    className={`px-4 py-3 ${comment.resolved ? 'bg-green-50' : 'bg-white'}`}
-                  >
+                {activeComments.map((comment) => (
+                  <div key={comment.id} className="px-4 py-3 bg-white">
                     <div className="flex items-start justify-between gap-2">
-                      <p className={`text-sm flex-1 whitespace-pre-wrap ${
-                        comment.resolved ? 'text-gray-500 line-through' : 'text-gray-800'
-                      }`}>
+                      <p className="text-sm flex-1 whitespace-pre-wrap text-gray-800">
                         {comment.text}
                       </p>
                       <div className="flex items-center gap-1 flex-shrink-0">
                         <button
                           onClick={() => toggleResolved(comment.id)}
-                          className={`p-1 rounded transition-colors ${
-                            comment.resolved
-                              ? 'text-green-600 hover:bg-green-100'
-                              : 'text-gray-400 hover:bg-gray-100 hover:text-green-600'
-                          }`}
-                          title={comment.resolved ? 'Mark unresolved' : 'Mark resolved'}
+                          className="p-1 rounded text-gray-400 hover:bg-green-100 hover:text-green-600 transition-colors"
+                          title="Mark resolved (moves to history)"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -128,7 +123,7 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
                         <button
                           onClick={() => deleteComment(comment.id)}
                           className="p-1 rounded text-gray-400 hover:bg-red-50 hover:text-red-600 transition-colors"
-                          title="Delete"
+                          title="Delete permanently"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -143,24 +138,65 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
             )}
           </div>
 
+          {/* History Section (Collapsible) */}
+          {resolvedComments.length > 0 && (
+            <div className="border-t border-gray-200">
+              <button
+                onClick={() => setShowHistory(!showHistory)}
+                className="w-full px-4 py-2 flex items-center justify-between text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <svg className={`w-4 h-4 transition-transform ${showHistory ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  History ({resolvedComments.length})
+                </span>
+                <span className="text-xs text-green-600">Resolved</span>
+              </button>
+
+              {showHistory && (
+                <div className="max-h-32 overflow-y-auto bg-gray-50 divide-y divide-gray-100">
+                  {resolvedComments.map((comment) => (
+                    <div key={comment.id} className="px-4 py-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="text-xs text-gray-500 line-through flex-1 whitespace-pre-wrap">
+                          {comment.text}
+                        </p>
+                        <button
+                          onClick={() => toggleResolved(comment.id)}
+                          className="p-1 rounded text-green-600 hover:bg-green-100 transition-colors flex-shrink-0"
+                          title="Reopen this feedback"
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                          </svg>
+                        </button>
+                      </div>
+                      <p className="text-xs text-gray-400 mt-0.5">Added {formatTimestamp(comment.timestamp)}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Add Comment Form */}
           <form onSubmit={handleAddComment} className="p-3 bg-gray-50 border-t">
             <textarea
               ref={textareaRef}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Add feedback... (e.g., 'Logo too small - SJS')"
+              placeholder="Add feedback... (sign with initials)"
               className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
               rows={2}
             />
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-xs text-gray-400">Sign with initials</span>
+            <div className="flex justify-end mt-2">
               <button
                 type="submit"
                 disabled={!newComment.trim()}
-                className="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
-                Add Comment
+                Add
               </button>
             </div>
           </form>

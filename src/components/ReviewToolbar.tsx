@@ -7,23 +7,15 @@ import { ENVIRONMENT } from '@/lib/supabase';
 export default function ReviewToolbar() {
   const {
     comments,
-    currentRound,
-    exportComments,
     exportAsAIPrompts,
-    clearAllComments,
-    startNewRound,
     isReviewMode,
     setReviewMode,
     isLoading,
     error,
     environment,
   } = useComments();
-  const [showPanel, setShowPanel] = useState(false);
-  const [showClearConfirm, setShowClearConfirm] = useState(false);
-  const [showNewRoundConfirm, setShowNewRoundConfirm] = useState(false);
   const [showPromptsModal, setShowPromptsModal] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
-  const [isClearing, setIsClearing] = useState(false);
   const [generatedPrompts, setGeneratedPrompts] = useState('');
 
   // Hide review mode completely on production environment
@@ -40,18 +32,67 @@ export default function ReviewToolbar() {
     setTimeout(() => setNotification(null), 3000);
   };
 
-  const handleExport = () => {
-    const data = exportComments();
-    const blob = new Blob([data], { type: 'application/json' });
+  // Export comments as simple text format
+  const handleDownloadText = () => {
+    const date = new Date().toISOString().split('T')[0];
+    let output = `DPGP Website Review Comments\n`;
+    output += `Exported: ${new Date().toLocaleString()}\n`;
+    output += `Environment: ${ENVIRONMENT}\n`;
+    output += `Total: ${comments.length} comments (${unresolvedCount} active, ${resolvedCount} resolved)\n`;
+    output += `${'='.repeat(60)}\n\n`;
+
+    // Group by section
+    const bySection = comments.reduce((acc, comment) => {
+      const key = comment.sectionName || comment.sectionId;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(comment);
+      return acc;
+    }, {} as Record<string, typeof comments>);
+
+    Object.entries(bySection).forEach(([section, sectionComments]) => {
+      output += `## ${section}\n`;
+      output += `${'-'.repeat(40)}\n`;
+
+      const active = sectionComments.filter(c => !c.resolved);
+      const resolved = sectionComments.filter(c => c.resolved);
+
+      if (active.length > 0) {
+        output += `\nActive (${active.length}):\n`;
+        active.forEach((comment, i) => {
+          const date = new Date(comment.timestamp).toLocaleString('en-IN', {
+            day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+          });
+          output += `  ${i + 1}. ${comment.text}\n`;
+          output += `     [${date}]\n`;
+        });
+      }
+
+      if (resolved.length > 0) {
+        output += `\nResolved (${resolved.length}):\n`;
+        resolved.forEach((comment, i) => {
+          const date = new Date(comment.timestamp).toLocaleString('en-IN', {
+            day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+          });
+          output += `  ${i + 1}. [RESOLVED] ${comment.text}\n`;
+          output += `     [${date}]\n`;
+        });
+      }
+
+      output += `\n`;
+    });
+
+    const blob = new Blob([output], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dpgp-comments-round${currentRound}-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `dpgp-comments-${date}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showNotification('Comments exported successfully!');
+    showNotification('Comments downloaded as text file!');
   };
 
   const handleExportAIPrompts = () => {
@@ -74,26 +115,12 @@ export default function ReviewToolbar() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dpgp-ai-prompts-round${currentRound}-${new Date().toISOString().split('T')[0]}.md`;
+    a.download = `dpgp-ai-prompts-${new Date().toISOString().split('T')[0]}.md`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     showNotification('AI Prompts downloaded!');
-  };
-
-  const handleClear = async () => {
-    setIsClearing(true);
-    await clearAllComments();
-    setShowClearConfirm(false);
-    setIsClearing(false);
-    showNotification(`All Round ${currentRound} comments cleared.`);
-  };
-
-  const handleStartNewRound = async () => {
-    await startNewRound();
-    setShowNewRoundConfirm(false);
-    showNotification(`Started Review Round ${currentRound + 1}!`);
   };
 
   // Floating toggle button when not in review mode
@@ -112,7 +139,6 @@ export default function ReviewToolbar() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
         </svg>
         <span className="hidden sm:inline">Review Mode</span>
-        <span className="text-xs bg-white/20 px-1.5 py-0.5 rounded">R{currentRound}</span>
       </button>
     );
   }
@@ -126,7 +152,7 @@ export default function ReviewToolbar() {
         </div>
       )}
 
-      {/* Review Mode Bar */}
+      {/* Review Mode Bar - Simplified */}
       <div className={`fixed bottom-0 left-0 right-0 z-50 shadow-lg ${
         isSandbox
           ? 'bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500'
@@ -139,42 +165,44 @@ export default function ReviewToolbar() {
               <div className="flex items-center gap-2 text-white">
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                 <span className="font-semibold text-sm">REVIEW MODE</span>
-                <span className="text-xs bg-white/30 px-2 py-0.5 rounded-full font-bold">
-                  Round {currentRound}
-                </span>
               </div>
               <div className="hidden sm:flex items-center gap-3 text-white/90 text-sm">
                 <span>{comments.length} total</span>
                 <span>•</span>
                 <span className="text-green-200">{resolvedCount} resolved</span>
                 <span>•</span>
-                <span className="text-red-200">{unresolvedCount} pending</span>
+                <span className="text-red-200">{unresolvedCount} active</span>
+                {isLoading && <span className="text-white/70 ml-2">Loading...</span>}
+                {error && <span className="text-red-200 ml-2">{error}</span>}
               </div>
             </div>
 
-            {/* Right: Actions */}
+            {/* Right: Actions - Simplified */}
             <div className="flex items-center gap-2">
+              {/* Download Comments (Text) */}
+              <button
+                onClick={handleDownloadText}
+                disabled={comments.length === 0}
+                className="flex items-center gap-1 px-3 py-1.5 bg-white/20 hover:bg-white/30 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors"
+                title="Download all comments as text file"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span className="hidden sm:inline">Download</span>
+              </button>
+
               {/* AI Prompts Button */}
               <button
                 onClick={handleExportAIPrompts}
-                className="flex items-center gap-1 px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors"
-                title="Export as AI Prompts"
+                disabled={unresolvedCount === 0}
+                className="flex items-center gap-1 px-3 py-1.5 bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors"
+                title="Generate AI prompts from active comments"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 <span className="hidden sm:inline">AI Prompts</span>
-              </button>
-
-              {/* Expand/Actions Button */}
-              <button
-                onClick={() => setShowPanel(!showPanel)}
-                className="flex items-center gap-1 px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white text-sm font-medium rounded-lg transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-                <span className="hidden sm:inline">More</span>
               </button>
 
               {/* Exit Review Mode */}
@@ -191,75 +219,6 @@ export default function ReviewToolbar() {
               </button>
             </div>
           </div>
-
-          {/* Expanded Panel */}
-          {showPanel && (
-            <div className="pb-4 pt-2 border-t border-white/20">
-              {/* Status indicator */}
-              <div className="flex items-center justify-center gap-2 mb-3 text-xs">
-                {isLoading ? (
-                  <span className="text-white/70">Loading comments...</span>
-                ) : error ? (
-                  <span className="text-red-200">{error}</span>
-                ) : (
-                  <span className="text-green-200 flex items-center gap-1">
-                    <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                    Review Round {currentRound} - Comments sync in real-time
-                  </span>
-                )}
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {/* Export JSON */}
-                <button
-                  onClick={handleExport}
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                  <span className="text-sm font-medium">Export JSON</span>
-                </button>
-
-                {/* New Round */}
-                <button
-                  onClick={() => setShowNewRoundConfirm(true)}
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-500/80 hover:bg-blue-500 text-white rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                  <span className="text-sm font-medium">New Round</span>
-                </button>
-
-                {/* Clear Current Round */}
-                <button
-                  onClick={() => setShowClearConfirm(true)}
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-red-500/80 hover:bg-red-500 text-white rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                  <span className="text-sm font-medium">Clear Round</span>
-                </button>
-
-                {/* AI Prompts (duplicate for panel) */}
-                <button
-                  onClick={handleExportAIPrompts}
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-green-500/80 hover:bg-green-500 text-white rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  <span className="text-sm font-medium">AI Prompts</span>
-                </button>
-              </div>
-
-              <p className="text-white/70 text-xs text-center mt-3">
-                Click &quot;AI Prompts&quot; to generate ready-to-use prompts from feedback. Start &quot;New Round&quot; after changes are made.
-              </p>
-            </div>
-          )}
         </div>
       </div>
 
@@ -269,8 +228,8 @@ export default function ReviewToolbar() {
           <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[80vh] overflow-hidden flex flex-col">
             <div className="px-6 py-4 bg-green-600 text-white flex items-center justify-between">
               <div>
-                <h3 className="font-semibold">AI-Ready Prompts - Round {currentRound}</h3>
-                <p className="text-sm text-green-100">{unresolvedCount} pending items to process</p>
+                <h3 className="font-semibold">AI-Ready Prompts</h3>
+                <p className="text-sm text-green-100">{unresolvedCount} active items to process</p>
               </div>
               <button
                 onClick={() => setShowPromptsModal(false)}
@@ -304,72 +263,6 @@ export default function ReviewToolbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 Copy to Clipboard
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* New Round Confirmation Modal */}
-      {showNewRoundConfirm && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full overflow-hidden">
-            <div className="px-6 py-4 bg-blue-600 text-white">
-              <h3 className="font-semibold">Start New Review Round?</h3>
-            </div>
-            <div className="p-6">
-              <p className="text-gray-600">
-                This will archive Round {currentRound} comments and start <strong>Round {currentRound + 1}</strong>.
-              </p>
-              <p className="text-sm text-blue-600 mt-2">
-                Previous comments are saved and can be accessed later. New comments will be separate.
-              </p>
-            </div>
-            <div className="px-6 py-3 bg-gray-50 flex justify-end gap-2">
-              <button
-                onClick={() => setShowNewRoundConfirm(false)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleStartNewRound}
-                className="px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Start Round {currentRound + 1}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Clear Confirmation Modal */}
-      {showClearConfirm && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full overflow-hidden">
-            <div className={`px-6 py-4 text-white ${isSandbox ? 'bg-purple-600' : 'bg-red-600'}`}>
-              <h3 className="font-semibold">Clear Round {currentRound} Comments?</h3>
-            </div>
-            <div className="p-6">
-              <p className="text-gray-600">
-                This will permanently delete all {comments.length} comments from Round {currentRound}. This action cannot be undone.
-              </p>
-            </div>
-            <div className="px-6 py-3 bg-gray-50 flex justify-end gap-2">
-              <button
-                onClick={() => setShowClearConfirm(false)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleClear}
-                disabled={isClearing}
-                className={`px-4 py-2 text-sm font-medium text-white rounded-lg disabled:opacity-50 transition-colors ${
-                  isSandbox ? 'bg-purple-600 hover:bg-purple-700' : 'bg-red-600 hover:bg-red-700'
-                }`}
-              >
-                {isClearing ? 'Clearing...' : 'Clear All'}
               </button>
             </div>
           </div>
