@@ -1,6 +1,7 @@
 import { getDictionary, Locale, locales } from '@/dictionaries';
 import { ministries, MinistryDetail } from '@/data/ministries';
 import Link from 'next/link';
+import ReviewableSection from '@/components/ReviewableSection';
 
 export default async function MinistriesPage({
   params,
@@ -17,6 +18,7 @@ export default async function MinistriesPage({
   return (
     <div>
       {/* Hero */}
+      <ReviewableSection sectionId="ministries-hero" sectionName="Ministries Hero">
       <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-[100px]" />
@@ -27,8 +29,10 @@ export default async function MinistriesPage({
           <p className="text-xl text-blue-200 max-w-3xl mx-auto">{dict.ministries.subtitle}</p>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Quick Nav */}
+      <ReviewableSection sectionId="ministries-nav" sectionName="Quick Navigation">
       <section className="bg-white py-8 border-b sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-4 overflow-x-auto pb-2">
@@ -45,8 +49,10 @@ export default async function MinistriesPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Detailed Ministry Sections */}
+      <ReviewableSection sectionId="ministries-list" sectionName="All Ministry Details">
       <section className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">
@@ -65,8 +71,10 @@ export default async function MinistriesPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Call to Action */}
+      <ReviewableSection sectionId="ministries-cta" sectionName="Call to Action">
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
@@ -87,6 +95,7 @@ export default async function MinistriesPage({
           </Link>
         </div>
       </section>
+      </ReviewableSection>
     </div>
   );
 }

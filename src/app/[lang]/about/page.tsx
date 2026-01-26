@@ -1,5 +1,6 @@
 import { getDictionary, Locale, locales } from '@/dictionaries';
 import Image from 'next/image';
+import ReviewableSection from '@/components/ReviewableSection';
 
 export default async function AboutPage({
   params,
@@ -261,6 +262,7 @@ export default async function AboutPage({
   return (
     <div>
       {/* Hero */}
+      <ReviewableSection sectionId="about-hero" sectionName="About Hero">
       <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-[100px]" />
@@ -275,8 +277,10 @@ export default async function AboutPage({
           <p className="text-xl text-blue-200 max-w-3xl mx-auto">{t.heroDesc}</p>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* The Initiative */}
+      <ReviewableSection sectionId="about-initiative" sectionName="The Initiative">
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -314,16 +318,20 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Why Now - AI Moment */}
+      <ReviewableSection sectionId="about-whynow" sectionName="Why Now - AI Moment">
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-6">{t.whyNowTitle}</h2>
           <p className="text-orange-100 text-lg leading-relaxed">{t.whyNowDesc}</p>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* OmniDEL Section */}
+      <ReviewableSection sectionId="about-omnidel" sectionName="OmniDEL Framework">
       <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -345,8 +353,10 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* KarmYog Section */}
+      <ReviewableSection sectionId="about-karmyog" sectionName="KarmYog Foundation">
       <section className="bg-blue-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -359,8 +369,10 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Founder Section */}
+      <ReviewableSection sectionId="about-founders" sectionName="Founders">
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">{t.founderTitle}</h2>
@@ -397,8 +409,10 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Scale Section */}
+      <ReviewableSection sectionId="about-scale" sectionName="Scale & Stats">
       <section className="bg-gradient-to-br from-blue-900 to-blue-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">{t.scaleTitle}</h2>
@@ -413,8 +427,10 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Track Record */}
+      <ReviewableSection sectionId="about-track" sectionName="Track Record">
       <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -437,8 +453,10 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Principles */}
+      <ReviewableSection sectionId="about-principles" sectionName="Our Principles">
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">{t.principlesTitle}</h2>
@@ -455,8 +473,10 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* CTA */}
+      <ReviewableSection sectionId="about-cta" sectionName="Call to Action">
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">{t.ctaTitle}</h2>
@@ -469,6 +489,7 @@ export default async function AboutPage({
           </a>
         </div>
       </section>
+      </ReviewableSection>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getDictionary, Locale, locales } from '@/dictionaries';
+import ReviewableSection from '@/components/ReviewableSection';
 
 export default async function HomePage({
   params,
@@ -27,6 +28,7 @@ export default async function HomePage({
   return (
     <div>
       {/* Hero Section with Background Image */}
+      <ReviewableSection sectionId="home-hero" sectionName="Hero Section">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
@@ -105,8 +107,10 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Stats Section */}
+      <ReviewableSection sectionId="home-stats" sectionName="Stats Section">
       <section className="bg-white py-20 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -142,8 +146,10 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Mission Section */}
+      <ReviewableSection sectionId="home-mission" sectionName="Mission Section">
       <section className="bg-gradient-to-b from-gray-50 to-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-5xl font-bold text-center text-blue-900 mb-6">
@@ -174,8 +180,10 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Ministries Preview */}
+      <ReviewableSection sectionId="home-ministries" sectionName="Ministries Preview">
       <section className="bg-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -220,8 +228,10 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Quote Section */}
+      <ReviewableSection sectionId="home-quote" sectionName="Quote Section">
       <section className="bg-blue-900 py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-[100px]" />
@@ -241,8 +251,10 @@ export default async function HomePage({
           </p>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* CTA Section */}
+      <ReviewableSection sectionId="home-cta" sectionName="Call to Action">
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500" />
         <div className="absolute inset-0 opacity-20">
@@ -267,6 +279,7 @@ export default async function HomePage({
           </Link>
         </div>
       </section>
+      </ReviewableSection>
     </div>
   );
 }

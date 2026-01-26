@@ -1,4 +1,5 @@
 import { getDictionary, Locale, locales } from '@/dictionaries';
+import ReviewableSection from '@/components/ReviewableSection';
 
 export default async function WhyNowPage({
   params,
@@ -323,6 +324,7 @@ export default async function WhyNowPage({
   return (
     <div>
       {/* Hero Section */}
+      <ReviewableSection sectionId="whynow-hero" sectionName="Hero Section">
       <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-[100px]" />
@@ -339,8 +341,10 @@ export default async function WhyNowPage({
           <p className="text-blue-300 italic">{t.attribution}</p>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Core Insight Section */}
+      <ReviewableSection sectionId="whynow-insight" sectionName="Core Insight: Media vs Education">
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 text-center mb-16">{t.insightTitle}</h2>
@@ -387,8 +391,10 @@ export default async function WhyNowPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Jagaran Layer Solution */}
+      <ReviewableSection sectionId="whynow-jagaran" sectionName="Jagaran Layer Solution">
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -408,8 +414,10 @@ export default async function WhyNowPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Historical Precedent */}
+      <ReviewableSection sectionId="whynow-historical" sectionName="Historical Precedent: Festivals">
       <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 text-center mb-6">{t.historicalTitle}</h2>
@@ -429,8 +437,10 @@ export default async function WhyNowPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Proof of Concept */}
+      <ReviewableSection sectionId="whynow-proof" sectionName="Proof of Concept">
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 text-center mb-12">{t.proofTitle}</h2>
@@ -456,8 +466,10 @@ export default async function WhyNowPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* 50+ Events */}
+      <ReviewableSection sectionId="whynow-events" sectionName="50+ Societal Events">
       <section className="bg-blue-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-6">{t.eventsTitle}</h2>
@@ -474,8 +486,10 @@ export default async function WhyNowPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Why Now - AI */}
+      <ReviewableSection sectionId="whynow-ai" sectionName="AI Multiplier">
       <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 text-center mb-6">{t.whyNowTitle}</h2>
@@ -507,8 +521,10 @@ export default async function WhyNowPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Paradigm Shift */}
+      <ReviewableSection sectionId="whynow-paradigm" sectionName="New Paradigm for Education">
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 text-center mb-12">{t.implicationTitle}</h2>
@@ -526,8 +542,10 @@ export default async function WhyNowPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* CTA */}
+      <ReviewableSection sectionId="whynow-cta" sectionName="Call to Action">
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t.ctaTitle}</h2>
@@ -543,6 +561,7 @@ export default async function WhyNowPage({
           </a>
         </div>
       </section>
+      </ReviewableSection>
     </div>
   );
 }

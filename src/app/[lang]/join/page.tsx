@@ -1,4 +1,5 @@
 import { getDictionary, Locale, locales } from '@/dictionaries';
+import ReviewableSection from '@/components/ReviewableSection';
 
 export default async function JoinPage({
   params,
@@ -12,14 +13,17 @@ export default async function JoinPage({
   return (
     <div>
       {/* Hero */}
+      <ReviewableSection sectionId="join-hero" sectionName="Join Hero">
       <section className="bg-gradient-to-br from-orange-500 to-orange-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{dict.join.title}</h1>
           <p className="text-xl text-orange-100">{dict.join.subtitle}</p>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Ways to Join */}
+      <ReviewableSection sectionId="join-ways" sectionName="Ways to Join">
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -75,8 +79,10 @@ export default async function JoinPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Contact Section */}
+      <ReviewableSection sectionId="join-contact" sectionName="Contact & Social">
       <section className="bg-gray-50 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">{dict.join.contact}</h2>
@@ -155,8 +161,10 @@ export default async function JoinPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* CTA */}
+      <ReviewableSection sectionId="join-cta" sectionName="Call to Action">
       <section className="bg-blue-900 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
@@ -177,6 +185,7 @@ export default async function JoinPage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
     </div>
   );
 }

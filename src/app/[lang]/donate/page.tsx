@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getDictionary, Locale, locales } from '@/dictionaries';
+import ReviewableSection from '@/components/ReviewableSection';
 
 export default async function DonatePage({
   params,
@@ -32,6 +33,7 @@ export default async function DonatePage({
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
+      <ReviewableSection sectionId="donate-hero" sectionName="Donate Hero">
       <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-orange-500 rounded-full blur-[100px] animate-pulse" />
@@ -73,8 +75,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* What is DPGP Section */}
+      <ReviewableSection sectionId="donate-whatisdpgp" sectionName="What is DPGP">
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -136,8 +140,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Why Ministers Matter Section */}
+      <ReviewableSection sectionId="donate-ministers" sectionName="Why Ministers Matter">
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -175,8 +181,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* AI Cost Advantage Section */}
+      <ReviewableSection sectionId="donate-aiadvantage" sectionName="AI Cost Advantage">
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -216,8 +224,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Donation Tiers Section */}
+      <ReviewableSection sectionId="donate-tiers" sectionName="Donation Tiers & QR">
       <section id="donate-now" className="py-20 bg-gradient-to-b from-white to-orange-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -303,8 +313,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Sponsorship Section */}
+      <ReviewableSection sectionId="donate-sponsorship" sectionName="Corporate Sponsorship">
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -353,8 +365,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* About KarmYog Section */}
+      <ReviewableSection sectionId="donate-aboutorg" sectionName="About Organization">
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -431,8 +445,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* FAQ Section */}
+      <ReviewableSection sectionId="donate-faq" sectionName="FAQ Section">
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -456,8 +472,10 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
 
       {/* Final CTA Section */}
+      <ReviewableSection sectionId="donate-cta" sectionName="Final Call to Action">
       <section className="py-20 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
@@ -486,6 +504,7 @@ export default async function DonatePage({
           </div>
         </div>
       </section>
+      </ReviewableSection>
     </div>
   );
 }
