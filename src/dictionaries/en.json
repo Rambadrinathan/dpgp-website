@@ -1,11 +1,12 @@
 {
   "meta": {
-    "title": "DPGP - Not Party, We Want Ministers",
-    "description": "100-Day Voter Education Campaign for West Bengal Assembly Elections 2026"
+    "title": "Dharma-Parayan Ganatantrik Parishad - Not Party, We Want Ministers",
+    "description": "Rajya-Manthan: 100-Day Voter Education Campaign for West Bengal Assembly Elections 2026"
   },
   "nav": {
     "home": "Home",
     "whyNow": "Why Now",
+    "ministerSelection": "Minister Selection",
     "ministries": "Ministries",
     "about": "About",
     "join": "Join Us",
@@ -159,8 +160,9 @@
     }
   },
   "about": {
-    "title": "About DPGP",
-    "subtitle": "Dharmic Political Governance Project",
+    "title": "About the Parishad",
+    "subtitle": "Dharma-Parayan Ganatantrik Parishad",
+    "fullName": "Sacred Democratic Council",
     "mission": "Our Vision",
     "missionText": "Transform West Bengal's political culture from party-centric voting to minister-centric evaluation, empowering citizens to elect a competent Council of Ministers who will govern with dharma (righteousness).",
     "founder": "Leadership",
@@ -193,8 +195,24 @@
   "footer": {
     "tagline": "Information for you. Decision is yours.",
     "taglineBengali": "তথ্য জানুন। সিদ্ধান্ত নিন।",
-    "disclaimer": "DPGP is not affiliated with any political party or candidate. We only provide information - the decision is yours.",
-    "copyright": "2026 DPGP - Dharmic Political Governance Project. An initiative of KarmYog for 21st Century."
+    "disclaimer": "Dharma-Parayan Ganatantrik Parishad is not affiliated with any political party or candidate. We only provide information - the decision is yours.",
+    "copyright": "2026 Dharma-Parayan Ganatantrik Parishad. An initiative of KarmYog for 21st Century."
+  },
+  "ministerSelection": {
+    "title": "Minister Selection",
+    "subtitle": "The Prayogshala - Sacred Electoral Experiment",
+    "description": "This is not about choosing parties. It's about selecting who will BE your minister. Evaluate candidates based on competence and character for specific ministerial roles.",
+    "howItWorks": "How Minister Selection Works",
+    "step1Title": "Understand Ministries",
+    "step1": "Learn what each of the 44 ministries does and how they affect your daily life",
+    "step2Title": "Evaluate Candidates",
+    "step2": "Assess if your constituency's candidates have the competence to be ministers",
+    "step3Title": "Make Informed Choice",
+    "step3": "Vote for the candidate best suited to serve as a minister, regardless of party",
+    "whyDifferent": "Why This is Different",
+    "paradigmShift": "Traditional voting asks: Which party do I support? Minister Selection asks: Which candidate can govern my state?",
+    "callToAction": "Become a Minister-Candidate",
+    "callToActionDesc": "If you believe you have the competence and character to serve as a minister, register your interest and let citizens evaluate you."
   },
   "cta": {
     "learnMore": "Learn More",
@@ -210,8 +228,8 @@
     "donateNow": "Donate Now",
     "impactFormula": "₹10 = 1 Voter Educated",
 
-    "whatIsTitle": "What is DPGP?",
-    "whatIsSubtitle": "DPGP (Dharmic Political Governance Project) is India's first AI-powered civic education campaign, transforming how voters understand democracy.",
+    "whatIsTitle": "What is the Parishad?",
+    "whatIsSubtitle": "Dharma-Parayan Ganatantrik Parishad is India's first AI-powered civic education campaign, transforming how voters understand democracy through Rajya-Manthan.",
     "coreMessage": "Our Core Message",
     "taglineBengali": "দল নয়, মন্ত্রী চাই",
     "taglineEnglish": "Not Party, We Want Ministers",
@@ -228,14 +246,14 @@
     "whyMinistersSubtitle": "Understanding the difference between voting for parties and evaluating ministers",
     "wrongWay": "The Current Way",
     "wrongWayDesc": "Voters look at party symbols, listen to rallies, vote based on loyalty or anger. They don't know what their MLA will actually DO if elected. Result: Incompetent people become ministers.",
-    "rightWay": "The DPGP Way",
+    "rightWay": "The Parishad Way",
     "rightWayDesc": "Voters learn what each ministry does, understand how governance works, evaluate if their candidate could be a competent minister. Result: Better ministers, better governance.",
     "paradigmQuote": "Parties don't run hospitals or build roads — Ministers do. So evaluate ministers, not party symbols.",
 
     "aiAdvantageTitle": "Why AI Changes Everything",
     "aiAdvantageSubtitle": "For the first time, technology makes mass voter education affordable",
     "traditionalMethod": "Traditional Method",
-    "aiMethod": "DPGP AI Method",
+    "aiMethod": "Rajya-Manthan AI Method",
     "perVoter": "per voter reached",
     "traditional1": "Physical rallies and meetings",
     "traditional2": "Limited reach and scalability",
@@ -301,7 +319,7 @@
 
     "faqTitle": "Frequently Asked Questions",
     "faqs": {
-      "q1": { "q": "Is DPGP affiliated with any political party?", "a": "Absolutely not. DPGP is strictly non-partisan. We educate voters about how democracy works, not who to vote for. We receive no funding from any political party and maintain complete independence." },
+      "q1": { "q": "Is the Parishad affiliated with any political party?", "a": "Absolutely not. Dharma-Parayan Ganatantrik Parishad is strictly non-partisan. We educate voters about how democracy works, not who to vote for. We receive no funding from any political party and maintain complete independence." },
       "q2": { "q": "How will my donation be used?", "a": "Every rupee is tracked publicly. Approximately: 60% on content creation (AI tools, video production), 25% on distribution (WhatsApp API, social ads), 10% on operations, 5% on reporting and transparency." },
       "q3": { "q": "Is my donation tax-deductible?", "a": "Yes! KarmYog for 21st Century Foundation has 80G certification. You'll receive an official receipt for tax purposes within 7 working days." },
       "q4": { "q": "Why focus on West Bengal?", "a": "We believe in proving concepts before scaling. Bengal 2026 is our pilot. Success here creates the blueprint for India's 2029 general elections and beyond." },
@@ -311,7 +329,7 @@
 
     "finalCtaTitle": "Every Voter Matters. Every Rupee Counts.",
     "finalCtaSubtitle": "Join thousands of Indians strengthening democracy through education. Your support today shapes Bengal's governance tomorrow.",
-    "learnMore": "Learn More About DPGP",
+    "learnMore": "Learn More About the Parishad",
     "everyRupee": "100% of donations go to voter education. Transparent accounting. Public dashboards."
   }
 }

@@ -13,6 +13,7 @@ interface HeaderProps {
     nav: {
       home: string;
       whyNow?: string;
+      ministerSelection?: string;
       ministries: string;
       about: string;
       join: string;
@@ -49,6 +50,7 @@ export default function Header({ lang, dict }: HeaderProps) {
   const navItems = [
     { href: `/${lang}`, label: dict.nav.home },
     { href: `/${lang}/why-now`, label: dict.nav.whyNow || 'Why Now' },
+    { href: `/${lang}/minister-selection`, label: dict.nav.ministerSelection || 'Minister Selection' },
     { href: `/${lang}/ministries`, label: dict.nav.ministries },
     { href: `/${lang}/about`, label: dict.nav.about },
     { href: `/${lang}/join`, label: dict.nav.join },
@@ -76,8 +78,8 @@ export default function Header({ lang, dict }: HeaderProps) {
               />
             </div>
             <div className="hidden sm:block">
-              <span className="font-bold text-blue-900 text-xl tracking-tight">DPGP</span>
-              <span className="text-xs text-orange-500 block font-medium">দল নয়, মন্ত্রী বাছুন</span>
+              <span className="font-bold text-blue-900 text-xl tracking-tight">পরিষদ</span>
+              <span className="text-xs text-orange-500 block font-medium">দল নয়, মন্ত্রী চাই</span>
             </div>
           </Link>
 
