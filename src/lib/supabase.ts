@@ -5,6 +5,9 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Environment: 'production' for live site, 'sandbox' for staging/testing
+export const ENVIRONMENT = process.env.NEXT_PUBLIC_ENVIRONMENT || 'sandbox';
+
 // Types for the section_comments table
 export interface SectionComment {
   id: string;
