@@ -52,7 +52,7 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
   const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newComment.trim()) {
-      await addComment(sectionId, newComment.trim());
+      await addComment(sectionId, sectionName, newComment.trim());
       setNewComment('');
     }
   };
@@ -117,7 +117,7 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
       setAiPreview(null);
 
       // Add a comment noting the AI edit
-      await addComment(sectionId, `[AI Edit Applied] ${aiPrompt}`);
+      await addComment(sectionId, sectionName, `[AI Edit Applied] ${aiPrompt}`);
 
       setTimeout(() => {
         setSuccessMessage(null);
