@@ -1,10 +1,12 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { supabase, DbComment } from '@/lib/supabase';
 
 export interface Comment {
   id: string;
   sectionId: string;
+  pagePath: string;
   text: string;
   timestamp: string;
   resolved?: boolean;
@@ -12,82 +14,167 @@ export interface Comment {
 
 interface CommentContextType {
   comments: Comment[];
-  addComment: (sectionId: string, text: string) => void;
-  deleteComment: (id: string) => void;
-  toggleResolved: (id: string) => void;
+  addComment: (sectionId: string, text: string) => Promise<void>;
+  deleteComment: (id: string) => Promise<void>;
+  toggleResolved: (id: string) => Promise<void>;
   getCommentsForSection: (sectionId: string) => Comment[];
   exportComments: () => string;
-  importComments: (json: string) => boolean;
-  clearAllComments: () => void;
+  clearAllComments: () => Promise<void>;
   isReviewMode: boolean;
   setReviewMode: (enabled: boolean) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const CommentContext = createContext<CommentContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'dpgp-review-comments';
 const REVIEW_MODE_KEY = 'dpgp-review-mode';
+
+function dbToComment(db: DbComment): Comment {
+  return {
+    id: db.id,
+    sectionId: db.section_id,
+    pagePath: db.page_path,
+    text: db.text,
+    timestamp: db.created_at,
+    resolved: db.resolved,
+  };
+}
 
 export function CommentProvider({ children }: { children: React.ReactNode }) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [isReviewMode, setIsReviewMode] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Load comments from localStorage on mount
+  // Load comments from Supabase on mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        setComments(JSON.parse(saved));
-      }
-      const reviewMode = localStorage.getItem(REVIEW_MODE_KEY);
-      if (reviewMode === 'true') {
-        setIsReviewMode(true);
-      }
-    } catch (e) {
-      console.error('Failed to load comments:', e);
-    }
-    setIsLoaded(true);
-  }, []);
-
-  // Save comments to localStorage whenever they change
-  useEffect(() => {
-    if (isLoaded) {
+    async function loadComments() {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+        setIsLoading(true);
+        const { data, error: fetchError } = await supabase
+          .from('comments')
+          .select('*')
+          .order('created_at', { ascending: true });
+
+        if (fetchError) {
+          console.error('Failed to load comments:', fetchError);
+          setError('Failed to load comments. Using local mode.');
+          return;
+        }
+
+        if (data) {
+          setComments(data.map(dbToComment));
+        }
+        setError(null);
       } catch (e) {
-        console.error('Failed to save comments:', e);
+        console.error('Failed to load comments:', e);
+        setError('Failed to connect to database.');
+      } finally {
+        setIsLoading(false);
       }
     }
-  }, [comments, isLoaded]);
+
+    loadComments();
+
+    // Load review mode preference from localStorage
+    const reviewMode = localStorage.getItem(REVIEW_MODE_KEY);
+    if (reviewMode === 'true') {
+      setIsReviewMode(true);
+    }
+
+    // Subscribe to real-time changes
+    const channel = supabase
+      .channel('comments-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'comments' },
+        (payload) => {
+          if (payload.eventType === 'INSERT') {
+            const newComment = dbToComment(payload.new as DbComment);
+            setComments((prev) => [...prev, newComment]);
+          } else if (payload.eventType === 'UPDATE') {
+            const updated = dbToComment(payload.new as DbComment);
+            setComments((prev) =>
+              prev.map((c) => (c.id === updated.id ? updated : c))
+            );
+          } else if (payload.eventType === 'DELETE') {
+            const deletedId = (payload.old as DbComment).id;
+            setComments((prev) => prev.filter((c) => c.id !== deletedId));
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   // Save review mode preference
   useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem(REVIEW_MODE_KEY, String(isReviewMode));
-    }
-  }, [isReviewMode, isLoaded]);
+    localStorage.setItem(REVIEW_MODE_KEY, String(isReviewMode));
+  }, [isReviewMode]);
 
-  const addComment = useCallback((sectionId: string, text: string) => {
-    const newComment: Comment = {
-      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      sectionId,
-      text,
-      timestamp: new Date().toISOString(),
-      resolved: false,
-    };
-    setComments((prev) => [...prev, newComment]);
+  const addComment = useCallback(async (sectionId: string, text: string) => {
+    const pagePath = typeof window !== 'undefined' ? window.location.pathname : '/';
+
+    const { data, error: insertError } = await supabase
+      .from('comments')
+      .insert({
+        section_id: sectionId,
+        page_path: pagePath,
+        text: text,
+        resolved: false,
+      })
+      .select()
+      .single();
+
+    if (insertError) {
+      console.error('Failed to add comment:', insertError);
+      setError('Failed to save comment.');
+      return;
+    }
+
+    if (data) {
+      setComments((prev) => [...prev, dbToComment(data)]);
+    }
   }, []);
 
-  const deleteComment = useCallback((id: string) => {
+  const deleteComment = useCallback(async (id: string) => {
+    const { error: deleteError } = await supabase
+      .from('comments')
+      .delete()
+      .eq('id', id);
+
+    if (deleteError) {
+      console.error('Failed to delete comment:', deleteError);
+      setError('Failed to delete comment.');
+      return;
+    }
+
     setComments((prev) => prev.filter((c) => c.id !== id));
   }, []);
 
-  const toggleResolved = useCallback((id: string) => {
+  const toggleResolved = useCallback(async (id: string) => {
+    const comment = comments.find((c) => c.id === id);
+    if (!comment) return;
+
+    const { error: updateError } = await supabase
+      .from('comments')
+      .update({ resolved: !comment.resolved })
+      .eq('id', id);
+
+    if (updateError) {
+      console.error('Failed to update comment:', updateError);
+      setError('Failed to update comment.');
+      return;
+    }
+
     setComments((prev) =>
       prev.map((c) => (c.id === id ? { ...c, resolved: !c.resolved } : c))
     );
-  }, []);
+  }, [comments]);
 
   const getCommentsForSection = useCallback(
     (sectionId: string) => {
@@ -105,31 +192,22 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
     return JSON.stringify(exportData, null, 2);
   }, [comments]);
 
-  const importComments = useCallback((json: string): boolean => {
-    try {
-      const data = JSON.parse(json);
-      if (data.comments && Array.isArray(data.comments)) {
-        // Merge imported comments with existing, avoiding duplicates
-        setComments((prev) => {
-          const existingIds = new Set(prev.map((c) => c.id));
-          const newComments = data.comments.filter(
-            (c: Comment) => !existingIds.has(c.id)
-          );
-          return [...prev, ...newComments];
-        });
-        return true;
-      }
-      return false;
-    } catch {
-      return false;
-    }
-  }, []);
+  const clearAllComments = useCallback(async () => {
+    const { error: deleteError } = await supabase
+      .from('comments')
+      .delete()
+      .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all
 
-  const clearAllComments = useCallback(() => {
+    if (deleteError) {
+      console.error('Failed to clear comments:', deleteError);
+      setError('Failed to clear comments.');
+      return;
+    }
+
     setComments([]);
   }, []);
 
-  const setReviewMode = useCallback((enabled: boolean) => {
+  const setReviewModeHandler = useCallback((enabled: boolean) => {
     setIsReviewMode(enabled);
   }, []);
 
@@ -142,10 +220,11 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
         toggleResolved,
         getCommentsForSection,
         exportComments,
-        importComments,
         clearAllComments,
         isReviewMode,
-        setReviewMode,
+        setReviewMode: setReviewModeHandler,
+        isLoading,
+        error,
       }}
     >
       {children}

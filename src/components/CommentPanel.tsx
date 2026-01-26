@@ -42,10 +42,10 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
     return null;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newComment.trim()) {
-      addComment(sectionId, newComment.trim());
+      await addComment(sectionId, newComment.trim());
       setNewComment('');
     }
   };
