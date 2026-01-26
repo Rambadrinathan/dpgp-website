@@ -24,11 +24,13 @@ export interface SectionComment {
 export interface DbComment {
   id: string;
   section_id: string;
+  section_name?: string;
   page_path: string;
   text: string;
   resolved: boolean;
   created_at: string;
   environment: string;
+  review_round: number;
 }
 
 export interface NewComment {
