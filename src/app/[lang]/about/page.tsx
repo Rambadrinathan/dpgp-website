@@ -14,11 +14,11 @@ export default async function AboutPage({
   const content = {
     en: {
       heroTitle: "A Historic First",
-      heroSubtitle: "The World's First AI-Powered Mass Voter Education Campaign",
+      heroSubtitle: "The World's First AI-Powered Mass Voter Education Prayog",
       heroDesc: "Educating 60 million voters in 100 days using the power of AI, Media, and Technology",
 
       initiativeTitle: "The Initiative",
-      initiativeSubtitle: "DPGP - Dharmic Political Governance Project",
+      initiativeSubtitle: "DPGP - Dharma-Parayan Ganatantrik Movement",
       initiativeDesc: "For the first time in history, we are leveraging the transformative power of AI to undertake a mass education campaign of unprecedented scale. The goal: to shift 60 million voters from party-centric thinking to minister-centric evaluation before the West Bengal Assembly Elections 2026.",
       initiativePoints: [
         "Transform political culture from 'Which party?' to 'Which minister?'",
@@ -95,11 +95,11 @@ export default async function AboutPage({
     },
     hi: {
       heroTitle: "एक ऐतिहासिक पहल",
-      heroSubtitle: "विश्व का पहला AI-संचालित जन मतदाता शिक्षा अभियान",
+      heroSubtitle: "विश्व का पहला AI-संचालित जन मतदाता शिक्षा प्रयोग",
       heroDesc: "AI, मीडिया और प्रौद्योगिकी की शक्ति से 100 दिनों में 6 करोड़ मतदाताओं को शिक्षित करना",
 
       initiativeTitle: "पहल",
-      initiativeSubtitle: "DPGP - धार्मिक राजनीतिक शासन परियोजना",
+      initiativeSubtitle: "DPGP - धर्म-परायण गणतान्त्रिक आंदोलन",
       initiativeDesc: "इतिहास में पहली बार, हम अभूतपूर्व पैमाने पर जन शिक्षा अभियान चलाने के लिए AI की परिवर्तनकारी शक्ति का लाभ उठा रहे हैं। लक्ष्य: पश्चिम बंगाल विधानसभा चुनाव 2026 से पहले 6 करोड़ मतदाताओं की सोच को दल-केंद्रित से मंत्री-केंद्रित मूल्यांकन में बदलना।",
       initiativePoints: [
         "'कौन सा दल?' से 'कौन सा मंत्री?' की ओर राजनीतिक संस्कृति को बदलना",
@@ -176,11 +176,11 @@ export default async function AboutPage({
     },
     bn: {
       heroTitle: "একটি ঐতিহাসিক প্রথম",
-      heroSubtitle: "বিশ্বের প্রথম AI-চালিত গণ ভোটার শিক্ষা অভিযান",
+      heroSubtitle: "বিশ্বের প্রথম AI-চালিত গণ ভোটার শিক্ষা প্রয়োগ",
       heroDesc: "AI, মিডিয়া ও প্রযুক্তির শক্তি দিয়ে ১০০ দিনে ৬ কোটি ভোটারকে শিক্ষিত করা",
 
       initiativeTitle: "উদ্যোগ",
-      initiativeSubtitle: "DPGP - ধার্মিক রাজনৈতিক শাসন প্রকল্প",
+      initiativeSubtitle: "DPGP - ধর্ম-পরায়ণ গণতান্ত্রিক আন্দোলন",
       initiativeDesc: "ইতিহাসে প্রথমবার, আমরা অভূতপূর্ব মাত্রায় গণশিক্ষা অভিযান চালাতে AI-এর রূপান্তরকারী শক্তি ব্যবহার করছি। লক্ষ্য: পশ্চিমবঙ্গ বিধানসভা নির্বাচন ২০২৬-এর আগে ৬ কোটি ভোটারের চিন্তাধারা দলকেন্দ্রিক থেকে মন্ত্রীকেন্দ্রিক মূল্যায়নে পরিবর্তন করা।",
       initiativePoints: [
         "'কোন দল?' থেকে 'কোন মন্ত্রী?'-তে রাজনৈতিক সংস্কৃতি রূপান্তর",
@@ -311,8 +311,8 @@ export default async function AboutPage({
                     />
                   </div>
                 </div>
-                <p className="text-center text-2xl font-bold text-orange-400 mb-2">দল নয়, মন্ত্রী বাছুন</p>
-                <p className="text-center text-blue-200">Not Party, Choose Ministers</p>
+                <p className="text-center text-2xl font-bold text-orange-400 mb-2">আপনার ভোট, আপনার মন্ত্রী</p>
+                <p className="text-center text-blue-200">Your Vote. Your Minister.</p>
               </div>
             </div>
           </div>
