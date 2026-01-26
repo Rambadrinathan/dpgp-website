@@ -98,7 +98,13 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
 
           if (payload.eventType === 'INSERT') {
             const newComment = dbToComment(payload.new as DbComment);
-            setComments((prev) => [...prev, newComment]);
+            // Prevent duplicates - only add if not already in state
+            setComments((prev) => {
+              if (prev.some((c) => c.id === newComment.id)) {
+                return prev;
+              }
+              return [...prev, newComment];
+            });
           } else if (payload.eventType === 'UPDATE') {
             const updated = dbToComment(payload.new as DbComment);
             setComments((prev) =>
@@ -143,8 +149,16 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
+    // Don't add to state here - let real-time subscription handle it
+    // This prevents duplicates
     if (data) {
-      setComments((prev) => [...prev, dbToComment(data)]);
+      const newComment = dbToComment(data);
+      setComments((prev) => {
+        if (prev.some((c) => c.id === newComment.id)) {
+          return prev;
+        }
+        return [...prev, newComment];
+      });
     }
   }, []);
 
