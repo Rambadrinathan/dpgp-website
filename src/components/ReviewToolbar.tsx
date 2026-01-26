@@ -12,6 +12,7 @@ export default function ReviewToolbar() {
     setReviewMode,
     isLoading,
     error,
+    environment,
   } = useComments();
   const [showPanel, setShowPanel] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
@@ -20,6 +21,7 @@ export default function ReviewToolbar() {
 
   const unresolvedCount = comments.filter((c) => !c.resolved).length;
   const resolvedCount = comments.filter((c) => c.resolved).length;
+  const isSandbox = environment === 'sandbox';
 
   const showNotification = (message: string) => {
     setNotification(message);
@@ -32,7 +34,7 @@ export default function ReviewToolbar() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dpgp-comments-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `dpgp-comments-${environment}-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -55,7 +57,7 @@ export default function ReviewToolbar() {
     await clearAllComments();
     setShowClearConfirm(false);
     setIsClearing(false);
-    showNotification('All comments cleared.');
+    showNotification(`All ${environment} comments cleared.`);
   };
 
   // Floating toggle button when not in review mode
@@ -63,13 +65,18 @@ export default function ReviewToolbar() {
     return (
       <button
         onClick={() => setReviewMode(true)}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+        className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 ${
+          isSandbox
+            ? 'bg-gradient-to-r from-purple-500 to-pink-500'
+            : 'bg-gradient-to-r from-yellow-500 to-orange-500'
+        } text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200`}
         title="Enable Review Mode"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
         </svg>
         <span className="hidden sm:inline">Review Mode</span>
+        {isSandbox && <span className="text-xs bg-white/20 px-1.5 py-0.5 rounded">SANDBOX</span>}
       </button>
     );
   }
@@ -84,7 +91,11 @@ export default function ReviewToolbar() {
       )}
 
       {/* Review Mode Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-500 shadow-lg">
+      <div className={`fixed bottom-0 left-0 right-0 z-50 shadow-lg ${
+        isSandbox
+          ? 'bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500'
+          : 'bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-500'
+      }`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-14">
             {/* Left: Review Mode Indicator */}
@@ -92,6 +103,11 @@ export default function ReviewToolbar() {
               <div className="flex items-center gap-2 text-white">
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                 <span className="font-semibold text-sm">REVIEW MODE</span>
+                {isSandbox && (
+                  <span className="text-xs bg-white/20 px-1.5 py-0.5 rounded font-bold">
+                    SANDBOX
+                  </span>
+                )}
               </div>
               <div className="hidden sm:flex items-center gap-3 text-white/90 text-sm">
                 <span>{comments.length} total</span>
@@ -118,7 +134,9 @@ export default function ReviewToolbar() {
               {/* Exit Review Mode */}
               <button
                 onClick={() => setReviewMode(false)}
-                className="flex items-center gap-1 px-3 py-1.5 bg-white text-orange-600 text-sm font-medium rounded-lg hover:bg-orange-50 transition-colors"
+                className={`flex items-center gap-1 px-3 py-1.5 bg-white text-sm font-medium rounded-lg hover:bg-opacity-90 transition-colors ${
+                  isSandbox ? 'text-purple-600' : 'text-orange-600'
+                }`}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -140,7 +158,9 @@ export default function ReviewToolbar() {
                 ) : (
                   <span className="text-green-200 flex items-center gap-1">
                     <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                    Synced to cloud - all reviewers see the same comments
+                    {isSandbox
+                      ? 'SANDBOX MODE - Testing only, production data is safe'
+                      : 'PRODUCTION - All reviewers see the same comments'}
                   </span>
                 )}
               </div>
@@ -192,13 +212,19 @@ export default function ReviewToolbar() {
       {showClearConfirm && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
           <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full overflow-hidden">
-            <div className="px-6 py-4 bg-red-600 text-white">
-              <h3 className="font-semibold">Clear All Comments?</h3>
+            <div className={`px-6 py-4 text-white ${isSandbox ? 'bg-purple-600' : 'bg-red-600'}`}>
+              <h3 className="font-semibold">Clear All {isSandbox ? 'Sandbox' : ''} Comments?</h3>
             </div>
             <div className="p-6">
               <p className="text-gray-600">
-                This will permanently delete all {comments.length} comments. This action cannot be undone.
+                This will permanently delete all {comments.length} comments
+                {isSandbox ? ' from sandbox' : ''}. This action cannot be undone.
               </p>
+              {isSandbox && (
+                <p className="text-sm text-purple-600 mt-2">
+                  Note: Production comments are not affected.
+                </p>
+              )}
             </div>
             <div className="px-6 py-3 bg-gray-50 flex justify-end gap-2">
               <button
@@ -210,7 +236,9 @@ export default function ReviewToolbar() {
               <button
                 onClick={handleClear}
                 disabled={isClearing}
-                className="px-4 py-2 text-sm font-medium bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 transition-colors"
+                className={`px-4 py-2 text-sm font-medium text-white rounded-lg disabled:opacity-50 transition-colors ${
+                  isSandbox ? 'bg-purple-600 hover:bg-purple-700' : 'bg-red-600 hover:bg-red-700'
+                }`}
               >
                 {isClearing ? 'Clearing...' : 'Clear All'}
               </button>

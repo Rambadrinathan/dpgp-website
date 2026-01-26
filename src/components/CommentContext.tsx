@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { supabase, DbComment } from '@/lib/supabase';
+import { supabase, DbComment, ENVIRONMENT } from '@/lib/supabase';
 
 export interface Comment {
   id: string;
@@ -24,6 +24,7 @@ interface CommentContextType {
   setReviewMode: (enabled: boolean) => void;
   isLoading: boolean;
   error: string | null;
+  environment: string;
 }
 
 const CommentContext = createContext<CommentContextType | undefined>(undefined);
@@ -47,7 +48,7 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load comments from Supabase on mount
+  // Load comments from Supabase on mount - filtered by environment
   useEffect(() => {
     async function loadComments() {
       try {
@@ -55,6 +56,7 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
         const { data, error: fetchError } = await supabase
           .from('comments')
           .select('*')
+          .eq('environment', ENVIRONMENT)
           .order('created_at', { ascending: true });
 
         if (fetchError) {
@@ -83,13 +85,17 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
       setIsReviewMode(true);
     }
 
-    // Subscribe to real-time changes
+    // Subscribe to real-time changes - filtered by environment
     const channel = supabase
       .channel('comments-changes')
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'comments' },
         (payload) => {
+          // Only handle events for our environment
+          const record = (payload.new || payload.old) as DbComment;
+          if (record?.environment !== ENVIRONMENT) return;
+
           if (payload.eventType === 'INSERT') {
             const newComment = dbToComment(payload.new as DbComment);
             setComments((prev) => [...prev, newComment]);
@@ -126,6 +132,7 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
         page_path: pagePath,
         text: text,
         resolved: false,
+        environment: ENVIRONMENT,
       })
       .select()
       .single();
@@ -187,16 +194,18 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
     const exportData = {
       exportedAt: new Date().toISOString(),
       source: 'DPGP Website Review',
+      environment: ENVIRONMENT,
       comments: comments,
     };
     return JSON.stringify(exportData, null, 2);
   }, [comments]);
 
   const clearAllComments = useCallback(async () => {
+    // Only clear comments for current environment
     const { error: deleteError } = await supabase
       .from('comments')
       .delete()
-      .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all
+      .eq('environment', ENVIRONMENT);
 
     if (deleteError) {
       console.error('Failed to clear comments:', deleteError);
@@ -225,6 +234,7 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
         setReviewMode: setReviewModeHandler,
         isLoading,
         error,
+        environment: ENVIRONMENT,
       }}
     >
       {children}
