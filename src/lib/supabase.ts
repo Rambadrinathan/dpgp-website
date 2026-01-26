@@ -18,6 +18,17 @@ export interface SectionComment {
   resolved: boolean;
   created_at: string;
   updated_at: string;
+  environment?: string;
+}
+
+export interface DbComment {
+  id: string;
+  section_id: string;
+  page_path: string;
+  text: string;
+  resolved: boolean;
+  created_at: string;
+  environment: string;
 }
 
 export interface NewComment {
