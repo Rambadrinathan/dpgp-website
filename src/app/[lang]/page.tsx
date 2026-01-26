@@ -109,6 +109,142 @@ export default async function HomePage({
       </section>
       </ReviewableSection>
 
+      {/* The Prayog Section */}
+      <ReviewableSection sectionId="home-prayog" sectionName="The Prayog Section">
+      <section className="bg-gradient-to-b from-white to-purple-50 py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-400 rounded-full blur-[100px]" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold text-purple-900 mb-4">
+              {dict.prayog.title}
+            </h2>
+            <p className="text-xl text-purple-700 font-medium mb-4">
+              {dict.prayog.subtitle}
+            </p>
+            <p className="text-gray-600 italic max-w-2xl mx-auto">
+              {dict.prayog.meaning}
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto mb-16">
+            <p className="text-lg text-gray-700 text-center leading-relaxed">
+              {dict.prayog.description}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-white p-8 rounded-3xl shadow-xl border-2 border-purple-200">
+              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 text-3xl">
+                🔬
+              </div>
+              <h3 className="text-2xl font-bold text-purple-900 mb-4">{dict.prayog.hypothesis}</h3>
+              <p className="text-gray-600 leading-relaxed">{dict.prayog.hypothesisText}</p>
+            </div>
+            <div className="bg-white p-8 rounded-3xl shadow-xl border-2 border-orange-200">
+              <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 text-3xl">
+                ⚗️
+              </div>
+              <h3 className="text-2xl font-bold text-orange-900 mb-4">{dict.prayog.experiment}</h3>
+              <p className="text-gray-600 leading-relaxed">{dict.prayog.experimentText}</p>
+            </div>
+          </div>
+
+          {/* Three Pillars */}
+          <h3 className="text-2xl md:text-3xl font-bold text-center text-purple-900 mb-12">
+            {lang === 'bn' ? 'তিনটি স্তম্ভ' : lang === 'hi' ? 'तीन स्तंभ' : 'The Three Pillars'}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { pillar: dict.prayog.pillars.manthan, icon: '🔄', color: 'blue' },
+              { pillar: dict.prayog.pillars.prayogshala, icon: '🧪', color: 'purple' },
+              { pillar: dict.prayog.pillars.parishad, icon: '👥', color: 'orange' },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`p-8 rounded-3xl transition-all duration-300 card-hover ${
+                  item.color === 'blue'
+                    ? 'bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200'
+                    : item.color === 'purple'
+                    ? 'bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200'
+                    : 'bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200'
+                }`}
+              >
+                <div className="text-5xl mb-4">{item.icon}</div>
+                <h4 className={`text-2xl font-bold mb-2 ${
+                  item.color === 'blue' ? 'text-blue-900' : item.color === 'purple' ? 'text-purple-900' : 'text-orange-900'
+                }`}>
+                  {item.pillar.name}
+                </h4>
+                <p className="text-sm text-gray-500 mb-3 italic">{item.pillar.subtitle}</p>
+                <p className="text-gray-600 leading-relaxed">{item.pillar.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      </ReviewableSection>
+
+      {/* Success Dashboard Section */}
+      <ReviewableSection sectionId="home-dashboard" sectionName="Success Dashboard">
+      <section className="bg-gradient-to-r from-purple-900 via-purple-800 to-purple-900 py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-orange-500 rounded-full blur-[80px]" />
+          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-yellow-400 rounded-full blur-[80px]" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            {dict.dashboard.title}
+          </h2>
+          <p className="text-xl text-purple-200 mb-6">
+            {dict.dashboard.subtitle}
+          </p>
+          <p className="text-lg text-purple-100 max-w-3xl mx-auto mb-12">
+            {dict.dashboard.description}
+          </p>
+
+          {/* Goal Display */}
+          <div className="inline-flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-3xl px-12 py-8 mb-12">
+            <div className="text-8xl md:text-9xl font-bold text-orange-400">
+              {dict.dashboard.goal}
+            </div>
+            <div className="text-left">
+              <div className="text-2xl font-semibold text-white">{dict.dashboard.goalLabel}</div>
+            </div>
+          </div>
+
+          {/* Progress Stats */}
+          <h4 className="text-lg text-purple-200 mb-8">{dict.dashboard.progress}</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {[
+              { value: '0', label: dict.dashboard.ministerCandidates },
+              { value: '0', label: dict.dashboard.parishadMembers },
+              { value: '0', label: dict.dashboard.constituenciesCovered },
+              { value: '0', label: dict.dashboard.votersEducated },
+            ].map((stat, index) => (
+              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">{stat.value}</div>
+                <div className="text-sm text-purple-200">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <Link
+            href={`/${lang}/join`}
+            className="inline-flex items-center justify-center px-10 py-5 mt-12 bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 shadow-2xl"
+          >
+            {dict.dashboard.joinCta}
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+        </div>
+      </section>
+      </ReviewableSection>
+
       {/* Stats Section */}
       <ReviewableSection sectionId="home-stats" sectionName="Stats Section">
       <section className="bg-white py-20 relative overflow-hidden">
@@ -143,6 +279,144 @@ export default async function HomePage({
                 <div className="text-gray-600 text-lg">{item.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+      </ReviewableSection>
+
+      {/* Minister-Candidate Section */}
+      <ReviewableSection sectionId="home-minister-candidate" sectionName="Minister-Candidate Section">
+      <section className="bg-gradient-to-b from-orange-50 to-white py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Info */}
+            <div>
+              <h2 className="text-3xl md:text-5xl font-bold text-orange-900 mb-4">
+                {dict.ministerCandidate.title}
+              </h2>
+              <p className="text-xl text-orange-700 font-medium mb-6">
+                {dict.ministerCandidate.subtitle}
+              </p>
+              <p className="text-gray-600 mb-8 leading-relaxed">
+                {dict.ministerCandidate.description}
+              </p>
+
+              <h4 className="font-semibold text-gray-800 mb-4">{dict.ministerCandidate.whyJoin}</h4>
+              <ul className="space-y-3 mb-8">
+                {[
+                  dict.ministerCandidate.reason1,
+                  dict.ministerCandidate.reason2,
+                  dict.ministerCandidate.reason3,
+                  dict.ministerCandidate.reason4,
+                ].map((reason, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      {index + 1}
+                    </span>
+                    <span className="text-gray-700">{reason}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Right: Form */}
+            <div className="bg-white p-8 rounded-3xl shadow-2xl border-2 border-orange-200">
+              <h3 className="text-2xl font-bold text-orange-900 mb-6">{dict.ministerCandidate.formTitle}</h3>
+              <form className="space-y-4">
+                <input
+                  type="text"
+                  placeholder={dict.ministerCandidate.namePlaceholder}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-colors"
+                />
+                <input
+                  type="text"
+                  placeholder={dict.ministerCandidate.constituencyPlaceholder}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-colors"
+                />
+                <textarea
+                  placeholder={dict.ministerCandidate.whyMinisterPlaceholder}
+                  rows={4}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-colors resize-none"
+                />
+                <button
+                  type="submit"
+                  className="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-colors"
+                >
+                  {dict.ministerCandidate.submitButton}
+                </button>
+              </form>
+              <p className="text-xs text-gray-500 mt-4 text-center">
+                {dict.ministerCandidate.disclaimer}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      </ReviewableSection>
+
+      {/* Parishad Section */}
+      <ReviewableSection sectionId="home-parishad" sectionName="Parishad Section">
+      <section className="bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400 rounded-full blur-[100px]" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+              {dict.parishad.title}
+            </h2>
+            <p className="text-xl text-purple-200 mb-6">
+              {dict.parishad.subtitle}
+            </p>
+            <p className="text-lg text-blue-100 max-w-3xl mx-auto">
+              {dict.parishad.description}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Pledge */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+              <h3 className="text-2xl font-bold text-white mb-6">{dict.parishad.pledge}</h3>
+              <blockquote className="text-lg text-blue-100 italic leading-relaxed border-l-4 border-orange-400 pl-6">
+                &quot;{dict.parishad.pledgeText}&quot;
+              </blockquote>
+              <div className="mt-8 flex items-center gap-4">
+                <span className="text-5xl font-bold text-orange-400">1,000+</span>
+                <span className="text-purple-200">{dict.parishad.memberCount}</span>
+              </div>
+            </div>
+
+            {/* Right: Benefits */}
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-6">{dict.parishad.benefits.title}</h3>
+              <ul className="space-y-4">
+                {[
+                  dict.parishad.benefits.benefit1,
+                  dict.parishad.benefits.benefit2,
+                  dict.parishad.benefits.benefit3,
+                  dict.parishad.benefits.benefit4,
+                ].map((benefit, index) => (
+                  <li key={index} className="flex items-start gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
+                    <span className="text-blue-100">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={`/${lang}/join`}
+                className="inline-flex items-center justify-center px-10 py-5 mt-8 bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 shadow-2xl"
+              >
+                {dict.parishad.joinButton}
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
