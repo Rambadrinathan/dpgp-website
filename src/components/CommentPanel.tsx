@@ -42,10 +42,10 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
     return null;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newComment.trim()) {
-      addComment(sectionId, newComment.trim());
+      await addComment(sectionId, newComment.trim());
       setNewComment('');
     }
   };
@@ -147,7 +147,7 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
                       </p>
                       <div className="flex items-center gap-1 flex-shrink-0">
                         <button
-                          onClick={() => toggleResolved(comment.id)}
+                          onClick={async () => await toggleResolved(comment.id)}
                           className={`p-1 rounded transition-colors ${
                             comment.resolved
                               ? 'text-green-600 hover:bg-green-100'
@@ -160,7 +160,7 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
                           </svg>
                         </button>
                         <button
-                          onClick={() => deleteComment(comment.id)}
+                          onClick={async () => await deleteComment(comment.id)}
                           className="p-1 rounded text-gray-400 hover:bg-red-50 hover:text-red-600 transition-colors"
                           title="Delete comment"
                         >

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { supabase, SectionComment, addComment as addSupabaseComment, deleteComment as deleteSupabaseComment, toggleResolvedStatus } from '@/lib/supabase';
 
 export interface Comment {
   id: string;
@@ -8,86 +9,149 @@ export interface Comment {
   text: string;
   timestamp: string;
   resolved?: boolean;
+  authorName?: string;
 }
 
 interface CommentContextType {
   comments: Comment[];
-  addComment: (sectionId: string, text: string) => void;
-  deleteComment: (id: string) => void;
-  toggleResolved: (id: string) => void;
+  addComment: (sectionId: string, text: string) => Promise<void>;
+  deleteComment: (id: string) => Promise<void>;
+  toggleResolved: (id: string) => Promise<void>;
   getCommentsForSection: (sectionId: string) => Comment[];
   exportComments: () => string;
   importComments: (json: string) => boolean;
   clearAllComments: () => void;
   isReviewMode: boolean;
   setReviewMode: (enabled: boolean) => void;
+  isLoading: boolean;
+  currentPageUrl: string;
+  setCurrentPageUrl: (url: string) => void;
 }
 
 const CommentContext = createContext<CommentContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'dpgp-review-comments';
 const REVIEW_MODE_KEY = 'dpgp-review-mode';
+
+// Convert Supabase comment to local format
+function toLocalComment(sc: SectionComment): Comment {
+  return {
+    id: sc.id,
+    sectionId: sc.section_id,
+    text: sc.comment_text,
+    timestamp: sc.created_at,
+    resolved: sc.resolved,
+    authorName: sc.author_name || undefined,
+  };
+}
 
 export function CommentProvider({ children }: { children: React.ReactNode }) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [isReviewMode, setIsReviewMode] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPageUrl, setCurrentPageUrl] = useState('');
 
-  // Load comments from localStorage on mount
+  // Load comments from Supabase on mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        setComments(JSON.parse(saved));
-      }
-      const reviewMode = localStorage.getItem(REVIEW_MODE_KEY);
-      if (reviewMode === 'true') {
-        setIsReviewMode(true);
-      }
-    } catch (e) {
-      console.error('Failed to load comments:', e);
-    }
-    setIsLoaded(true);
-  }, []);
-
-  // Save comments to localStorage whenever they change
-  useEffect(() => {
-    if (isLoaded) {
+    async function loadComments() {
+      setIsLoading(true);
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+        const { data, error } = await supabase
+          .from('section_comments')
+          .select('*')
+          .order('created_at', { ascending: true });
+
+        if (error) {
+          console.error('Failed to load comments from Supabase:', error);
+        } else if (data) {
+          setComments(data.map(toLocalComment));
+        }
       } catch (e) {
-        console.error('Failed to save comments:', e);
+        console.error('Failed to load comments:', e);
       }
+      setIsLoading(false);
     }
-  }, [comments, isLoaded]);
+
+    loadComments();
+
+    // Load review mode preference from localStorage
+    const reviewMode = localStorage.getItem(REVIEW_MODE_KEY);
+    if (reviewMode === 'true') {
+      setIsReviewMode(true);
+    }
+
+    // Subscribe to real-time updates
+    const channel = supabase
+      .channel('section_comments_changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'section_comments' },
+        (payload) => {
+          if (payload.eventType === 'INSERT') {
+            const newComment = toLocalComment(payload.new as SectionComment);
+            setComments((prev) => {
+              // Avoid duplicates
+              if (prev.some((c) => c.id === newComment.id)) return prev;
+              return [...prev, newComment];
+            });
+          } else if (payload.eventType === 'UPDATE') {
+            const updated = toLocalComment(payload.new as SectionComment);
+            setComments((prev) =>
+              prev.map((c) => (c.id === updated.id ? updated : c))
+            );
+          } else if (payload.eventType === 'DELETE') {
+            const deletedId = (payload.old as { id: string }).id;
+            setComments((prev) => prev.filter((c) => c.id !== deletedId));
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   // Save review mode preference
   useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem(REVIEW_MODE_KEY, String(isReviewMode));
+    localStorage.setItem(REVIEW_MODE_KEY, String(isReviewMode));
+  }, [isReviewMode]);
+
+  const addComment = useCallback(async (sectionId: string, text: string) => {
+    // Extract author name if present (e.g., "comment text - SJS")
+    let authorName: string | undefined;
+    let commentText = text;
+    const authorMatch = text.match(/\s*[-–—]\s*([A-Za-z]{2,10})$/);
+    if (authorMatch) {
+      authorName = authorMatch[1];
+      commentText = text.replace(/\s*[-–—]\s*[A-Za-z]{2,10}$/, '').trim();
     }
-  }, [isReviewMode, isLoaded]);
 
-  const addComment = useCallback((sectionId: string, text: string) => {
-    const newComment: Comment = {
-      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      sectionId,
-      text,
-      timestamp: new Date().toISOString(),
-      resolved: false,
-    };
-    setComments((prev) => [...prev, newComment]);
+    const result = await addSupabaseComment({
+      section_id: sectionId,
+      page_url: currentPageUrl || window.location.pathname,
+      comment_text: commentText,
+      author_name: authorName,
+    });
+
+    if (result) {
+      // Real-time subscription will handle the update
+    }
+  }, [currentPageUrl]);
+
+  const deleteComment = useCallback(async (id: string) => {
+    const success = await deleteSupabaseComment(id);
+    if (success) {
+      // Real-time subscription will handle the update
+    }
   }, []);
 
-  const deleteComment = useCallback((id: string) => {
-    setComments((prev) => prev.filter((c) => c.id !== id));
-  }, []);
-
-  const toggleResolved = useCallback((id: string) => {
-    setComments((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, resolved: !c.resolved } : c))
-    );
-  }, []);
+  const toggleResolved = useCallback(async (id: string) => {
+    const comment = comments.find((c) => c.id === id);
+    if (comment) {
+      await toggleResolvedStatus(id, !comment.resolved);
+      // Real-time subscription will handle the update
+    }
+  }, [comments]);
 
   const getCommentsForSection = useCallback(
     (sectionId: string) => {
@@ -100,23 +164,19 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
     const exportData = {
       exportedAt: new Date().toISOString(),
       source: 'DPGP Website Review',
+      pageUrl: currentPageUrl,
       comments: comments,
     };
     return JSON.stringify(exportData, null, 2);
-  }, [comments]);
+  }, [comments, currentPageUrl]);
 
   const importComments = useCallback((json: string): boolean => {
+    // Import is now mainly for reference - actual data is in Supabase
     try {
       const data = JSON.parse(json);
       if (data.comments && Array.isArray(data.comments)) {
-        // Merge imported comments with existing, avoiding duplicates
-        setComments((prev) => {
-          const existingIds = new Set(prev.map((c) => c.id));
-          const newComments = data.comments.filter(
-            (c: Comment) => !existingIds.has(c.id)
-          );
-          return [...prev, ...newComments];
-        });
+        console.log('Import data (for reference):', data);
+        // TODO: Could batch insert to Supabase if needed
         return true;
       }
       return false;
@@ -126,10 +186,12 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const clearAllComments = useCallback(() => {
-    setComments([]);
+    // Clear is a dangerous operation - only clear local state
+    // Supabase data should be managed through dashboard
+    console.warn('Clear all is disabled for Supabase mode. Manage data through Supabase dashboard.');
   }, []);
 
-  const setReviewMode = useCallback((enabled: boolean) => {
+  const handleSetReviewMode = useCallback((enabled: boolean) => {
     setIsReviewMode(enabled);
   }, []);
 
@@ -145,7 +207,10 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
         importComments,
         clearAllComments,
         isReviewMode,
-        setReviewMode,
+        setReviewMode: handleSetReviewMode,
+        isLoading,
+        currentPageUrl,
+        setCurrentPageUrl,
       }}
     >
       {children}
