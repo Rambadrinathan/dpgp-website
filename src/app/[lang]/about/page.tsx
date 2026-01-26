@@ -311,8 +311,8 @@ export default async function AboutPage({
                     />
                   </div>
                 </div>
-                <p className="text-center text-2xl font-bold text-orange-400 mb-2">দল নয়, মন্ত্রী বাছুন</p>
-                <p className="text-center text-blue-200">Not Party, Choose Ministers</p>
+                <p className="text-center text-2xl font-bold text-orange-400 mb-2">মন্ত্রী চিনুন, মন্ত্রী বাছুন</p>
+                <p className="text-center text-blue-200">Know Your Minister, Choose Your Minister</p>
               </div>
             </div>
           </div>

@@ -241,10 +241,10 @@ export default async function HomePage({
           <div className="text-6xl mb-6 opacity-50">&quot;</div>
           <blockquote className="text-2xl md:text-4xl font-medium text-white mb-8 leading-relaxed">
             {lang === 'bn'
-              ? 'দল তো হাসপাতাল চালায় না, রাস্তা বানায় না — মন্ত্রী চালায়। তাই দল নয়, মন্ত্রী বাছুন।'
+              ? 'দল তো হাসপাতাল চালায় না, রাস্তা বানায় না — মন্ত্রী চালায়। তাই মন্ত্রী চিনুন, মন্ত্রী বাছুন।'
               : lang === 'hi'
-              ? 'पार्टी तो अस्पताल नहीं चलाती, सड़क नहीं बनाती — मंत्री चलाते हैं। इसलिए पार्टी नहीं, मंत्री चुनें।'
-              : 'Parties don\'t run hospitals or build roads — Ministers do. So choose Ministers, not parties.'}
+              ? 'पार्टी तो अस्पताल नहीं चलाती, सड़क नहीं बनाती — मंत्री चलाते हैं। इसलिए मंत्री जानो, मंत्री चुनो।'
+              : 'Parties don\'t run hospitals or build roads — Ministers do. Know your minister, choose your minister.'}
           </blockquote>
           <p className="text-orange-400 font-semibold text-lg">
             — Mahacharya Sourabh J Sarkar

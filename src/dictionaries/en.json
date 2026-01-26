@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "DPGP - Not Party, We Want Ministers",
+    "title": "DPGP - Know Your Minister, Choose Your Minister",
     "description": "100-Day Voter Education Campaign for West Bengal Assembly Elections 2026"
   },
   "nav": {
@@ -14,7 +14,7 @@
   },
   "hero": {
     "tagline": "My Constituency, My Minister",
-    "taglineBengali": "দল নয়, মন্ত্রী চাই",
+    "taglineBengali": "মন্ত্রী চিনুন, মন্ত্রী বাছুন",
     "subtitle": "100-Day AI-Powered Mass Education Campaign",
     "description": "Transforming West Bengal's political culture from party-centric voting to minister-centric evaluation. Empowering 10 crore citizens to elect a competent Council of Ministers.",
     "cta": "Learn About Ministries",
@@ -141,13 +141,13 @@
     "whatIsTitle": "What is DPGP?",
     "whatIsSubtitle": "DPGP (Dharmic Political Governance Project) is India's first AI-powered civic education campaign, transforming how voters understand democracy.",
     "coreMessage": "Our Core Message",
-    "taglineBengali": "দল নয়, মন্ত্রী চাই",
-    "taglineEnglish": "Not Party, We Want Ministers",
+    "taglineBengali": "মন্ত্রী চিনুন, মন্ত্রী বাছুন",
+    "taglineEnglish": "Know Your Minister, Choose Your Minister",
     "coreExplanation": "We teach voters a revolutionary truth: Parties don't run hospitals or build roads — Ministers do. A state is run by its Council of Ministers, not by party symbols. When you vote, you're actually selecting who will BE your minister. This changes everything about how you should evaluate candidates.",
 
     "keyPoint1Title": "Ministers Run the State",
     "keyPoint1": "44 Ministers control your daily life - from healthcare to roads to education. Your MLA could become one of them.",
-    "keyPoint2Title": "Evaluate Candidates, Not Parties",
+    "keyPoint2Title": "Evaluate Your Candidates",
     "keyPoint2": "Ask: Is this candidate capable of being a minister? Do they have the competence and character to govern?",
     "keyPoint3Title": "Informed Voting = Better Governance",
     "keyPoint3": "When voters demand ministerial quality, parties are forced to field better candidates. Democracy improves.",

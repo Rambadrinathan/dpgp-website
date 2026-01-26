@@ -39,7 +39,7 @@ export default function Footer({ lang, dict }: FooterProps) {
               </div>
               <div>
                 <span className="font-bold text-2xl">DPGP</span>
-                <span className="text-orange-400 block text-sm font-medium">দল নয়, মন্ত্রী বাছুন</span>
+                <span className="text-orange-400 block text-sm font-medium">মন্ত্রী চিনুন, মন্ত্রী বাছুন</span>
               </div>
             </div>
             <p className="text-blue-100 text-lg mb-3">{dict.footer.tagline}</p>

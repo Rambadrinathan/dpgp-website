@@ -77,7 +77,7 @@ export default function Header({ lang, dict }: HeaderProps) {
             </div>
             <div className="hidden sm:block">
               <span className="font-bold text-blue-900 text-xl tracking-tight">DPGP</span>
-              <span className="text-xs text-orange-500 block font-medium">দল নয়, মন্ত্রী বাছুন</span>
+              <span className="text-xs text-orange-500 block font-medium">মন্ত্রী চিনুন, মন্ত্রী বাছুন</span>
             </div>
           </Link>
 

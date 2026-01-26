@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'DPGP - দল নয়, মন্ত্রী চাই',
+  title: 'DPGP - মন্ত্রী চিনুন, মন্ত্রী বাছুন',
   description: '100-Day Voter Education Campaign for West Bengal Assembly Elections 2026',
 };
 
