@@ -63,6 +63,10 @@ export default async function AboutPage({
       cofounderRole: "AI for Education Specialist | Technology Strategist",
       cofounderBio: "Deep expertise in leveraging AI for scalable education delivery. Architect of the AI systems powering the DPGP campaign.",
 
+      cofounder2Name: "Mrs. Reena Sarkar",
+      cofounder2Role: "Co-founder, KarmYog for 21st Century | GunaMata, KarmYog Parivaar",
+      cofounder2Bio: "Guiding force behind KarmYog's values and community building. Her vision and dedication have shaped the foundation's commitment to dharmic principles and grassroots engagement.",
+
       trackTitle: "Proven Track Record",
       trackSubtitle: "We don't just talk. We deliver.",
       tracks: [
@@ -144,6 +148,10 @@ export default async function AboutPage({
       cofounderRole: "AI for Education विशेषज्ञ | प्रौद्योगिकी रणनीतिकार",
       cofounderBio: "स्केलेबल शिक्षा वितरण के लिए AI का लाभ उठाने में गहरी विशेषज्ञता। DPGP अभियान को संचालित करने वाली AI प्रणालियों के वास्तुकार।",
 
+      cofounder2Name: "श्रीमती रीना सरकार",
+      cofounder2Role: "सह-संस्थापक, 21वीं सदी के लिए कर्मयोग | गुणमाता, कर्मयोग परिवार",
+      cofounder2Bio: "कर्मयोग के मूल्यों और समुदाय निर्माण की मार्गदर्शक शक्ति। उनकी दृष्टि और समर्पण ने धार्मिक सिद्धांतों और जमीनी स्तर की भागीदारी के प्रति फाउंडेशन की प्रतिबद्धता को आकार दिया है।",
+
       trackTitle: "सिद्ध ट्रैक रिकॉर्ड",
       trackSubtitle: "हम सिर्फ बात नहीं करते। हम करके दिखाते हैं।",
       tracks: [
@@ -224,6 +232,10 @@ export default async function AboutPage({
       cofounderName: "রাম বদ্রীনাথন",
       cofounderRole: "AI for Education বিশেষজ্ঞ | প্রযুক্তি কৌশলবিদ",
       cofounderBio: "স্কেলেবল শিক্ষা সরবরাহের জন্য AI ব্যবহারে গভীর দক্ষতা। DPGP অভিযান চালনাকারী AI সিস্টেমের স্থপতি।",
+
+      cofounder2Name: "শ্রীমতী রীনা সরকার",
+      cofounder2Role: "সহ-প্রতিষ্ঠাতা, ২১শ শতকের জন্য কর্মযোগ | গুণমাতা, কর্মযোগ পরিবার",
+      cofounder2Bio: "কর্মযোগের মূল্যবোধ ও সম্প্রদায় গঠনের পেছনের পথপ্রদর্শক শক্তি। তাঁর দৃষ্টিভঙ্গি ও নিবেদন ফাউন্ডেশনের ধার্মিক নীতি এবং তৃণমূল স্তরের সম্পৃক্ততার প্রতিশ্রুতিকে রূপ দিয়েছে।",
 
       trackTitle: "প্রমাণিত ট্র্যাক রেকর্ড",
       trackSubtitle: "আমরা শুধু কথা বলি না। আমরা করে দেখাই।",
@@ -397,14 +409,27 @@ export default async function AboutPage({
               </div>
             </div>
 
-            {/* Co-founder */}
-            <div className="bg-white border-2 border-gray-100 rounded-3xl p-8 shadow-lg">
-              <div className="w-32 h-32 bg-gradient-to-br from-orange-500 to-blue-900 rounded-full flex items-center justify-center mb-6 mx-auto shadow-xl">
-                <span className="text-white text-4xl font-bold">RB</span>
+            {/* Co-founders Column */}
+            <div className="space-y-6">
+              {/* Co-founder - Ram Badrinathan */}
+              <div className="bg-white border-2 border-gray-100 rounded-3xl p-8 shadow-lg">
+                <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-blue-900 rounded-full flex items-center justify-center mb-4 mx-auto shadow-xl">
+                  <span className="text-white text-3xl font-bold">RB</span>
+                </div>
+                <h3 className="text-xl font-bold text-blue-900 text-center mb-2">{t.cofounderName}</h3>
+                <p className="text-orange-500 text-center mb-4 font-medium text-sm">{t.cofounderRole}</p>
+                <p className="text-gray-700 text-center text-sm">{t.cofounderBio}</p>
               </div>
-              <h3 className="text-2xl font-bold text-blue-900 text-center mb-2">{t.cofounderName}</h3>
-              <p className="text-orange-500 text-center mb-6 font-medium">{t.cofounderRole}</p>
-              <p className="text-gray-700 text-center">{t.cofounderBio}</p>
+
+              {/* Co-founder - Mrs. Reena Sarkar */}
+              <div className="bg-white border-2 border-gray-100 rounded-3xl p-8 shadow-lg">
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-orange-500 rounded-full flex items-center justify-center mb-4 mx-auto shadow-xl">
+                  <span className="text-white text-3xl font-bold">RS</span>
+                </div>
+                <h3 className="text-xl font-bold text-blue-900 text-center mb-2">{t.cofounder2Name}</h3>
+                <p className="text-orange-500 text-center mb-4 font-medium text-sm">{t.cofounder2Role}</p>
+                <p className="text-gray-700 text-center text-sm">{t.cofounder2Bio}</p>
+              </div>
             </div>
           </div>
         </div>
