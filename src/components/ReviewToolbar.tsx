@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useComments } from './CommentContext';
+import { ENVIRONMENT } from '@/lib/supabase';
 
 export default function ReviewToolbar() {
   const {
@@ -18,6 +19,11 @@ export default function ReviewToolbar() {
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
   const [isClearing, setIsClearing] = useState(false);
+
+  // Hide review mode completely on production environment
+  if (ENVIRONMENT === 'production') {
+    return null;
+  }
 
   const unresolvedCount = comments.filter((c) => !c.resolved).length;
   const resolvedCount = comments.filter((c) => c.resolved).length;

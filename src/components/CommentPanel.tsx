@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useComments } from './CommentContext';
+import { ENVIRONMENT } from '@/lib/supabase';
 
 interface CommentPanelProps {
   sectionId: string;
@@ -43,7 +44,8 @@ export default function CommentPanel({ sectionId, sectionName }: CommentPanelPro
     }
   }, [isOpen, activeTab]);
 
-  if (!isReviewMode) {
+  // Hide completely on production environment or when review mode is disabled
+  if (ENVIRONMENT === 'production' || !isReviewMode) {
     return null;
   }
 
