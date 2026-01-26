@@ -5,24 +5,66 @@
 
 ## 1. CORE IDENTITY
 
-### Name & Terminology
-| Term | Meaning | Usage |
-|------|---------|-------|
-| **Prayog** | Sacred Experiment | The entire initiative (NOT "campaign") |
-| **Manthan** | Churning of Wisdom | Voter education & deliberation process |
-| **Prayogshala** | Sacred Laboratory | The electoral experiment space |
-| **Parishad** | Council | Panel of eminent people who evaluate candidates |
+### The Prayog: What It Is
+
+**The ENTIRE initiative is a Prayog (Sacred Experiment)** - not just one part of it. This is a first-of-its-kind democratic experiment in India where:
+
+1. Citizens are educated about how governance actually works (Manthan)
+2. Domain experts are invited to contest as Minister-Candidates (Prayogshala)
+3. An eminent council evaluates and endorses candidates (Parishad)
+
+The 12 Minister-Candidates is the **success metric** of the Prayog, not the Prayog itself. The Prayog is the whole journey of transforming how citizens think about elections.
+
+### Full Name & Structure
+**Dharma-Parayan Ganatantrik Parishad** (Sacred Democratic Council)
+
+The initiative has three interconnected components:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    THE PRAYOG STRUCTURE                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│   MANTHAN (मंथन / মন্থন)                                      │
+│   "Churning of Wisdom"                                       │
+│   → Voter education & deliberation process                   │
+│   → Teaching citizens how governance works                   │
+│   → Rajya-Manthan = State-level education program           │
+│                          ↓                                   │
+│   PRAYOGSHALA (प्रयोगशाला / প্রয়োগশালা)                       │
+│   "Sacred Laboratory"                                        │
+│   → The electoral experiment space                           │
+│   → Where Minister-Candidates emerge and contest             │
+│   → The 12 constituencies become the laboratory              │
+│                          ↓                                   │
+│   PARISHAD (परिषद / পরিষদ)                                    │
+│   "The Council"                                              │
+│   → Panel of eminent citizens who evaluate candidates        │
+│   → The collective that emerges from the Prayog              │
+│   → Dharma-Parayan Ganatantrik Parishad                      │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Key Terminology
+| Term | Hindi | Bengali | Meaning | Usage |
+|------|-------|---------|---------|-------|
+| **Prayog** | प्रयोग | প্রয়োগ | Sacred Experiment | The ENTIRE initiative |
+| **Manthan** | मंथन | মন্থন | Churning of Wisdom | Voter education & deliberation |
+| **Prayogshala** | प्रयोगशाला | প্রয়োগশালা | Sacred Laboratory | Electoral experiment space |
+| **Parishad** | परिषद | পরিষদ | Council | Evaluation panel & emerging collective |
+| **Rajya-Manthan** | राज्य-मंथन | রাজ্য-মন্থন | State Churning | State-level education program |
 
 ### Key Messaging
 - **Tagline**: "মন্ত্রী চিনুন, মন্ত্রী বাছুন" | "मंत्री जानो, मंत्री चुनो" | "Know Your Minister, Choose Your Minister"
 - **Alternative**: "আমাদের এলাকা, আমাদের মন্ত্রী" | "हमारा क्षेत्र, हमारा मंत्री" | "Our Constituency, Our Minister"
 - **Philosophy**: Empower citizens to make informed choices about who leads each ministry. Domain experts should run departments.
-- **Framing**: This is a PRAYOG (experiment), not a campaign. Someone is attempting what has never been done before.
+- **Framing**: This is a PRAYOG (sacred experiment), not a campaign. This has never been attempted before in Indian democracy.
 - **Tone**: POSITIVE framing - focus on choosing qualified ministers, NOT anti-party messaging
 
 ---
 
-## 2. THE PRAYOG: SUCCESS METRICS
+## 2. SUCCESS METRICS: The 12 Minister-Candidates
 
 ### The Yardstick
 The success of this Prayog will be measured by:
@@ -145,22 +187,60 @@ For each announced candidate:
 
 ## 4. VISUAL IDENTITY
 
-### Emblem Elements
-1. **Outer Ring**: Bilingual inscriptions (Bengali + Hindi)
-2. **Middle Layer**: Spiral/Mandala pattern (Manthan - churning)
-3. **Inner Core**: Shankha (conch) + flame-lamp hybrid (Prayogshala)
-4. **Foundation**: Banyan tree silhouette (rootedness, collective wisdom)
+### Two Emblem Designs
+
+**1. Ceremonial Seal** (for Dharma-Parayan Ganatantrik Parishad)
+- Formal documents, banners, official communications
+- Traditional, authoritative aesthetic
+
+**2. Modern-Minimalist Emblem** (for Rajya-Manthan Voter Education)
+- Digital platforms, social media, web
+- Clean, contemporary aesthetic
+
+### Emblem Structure & Symbolism
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    EMBLEM ANATOMY                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│   OUTER RING                                                 │
+│   → Bilingual inscriptions (Devanagari + Bengali)           │
+│   → Represents inclusivity and authority                     │
+│   → Contains initiative name in both scripts                 │
+│                                                              │
+│   MIDDLE LAYER                                               │
+│   → Spiral or Mandala pattern                                │
+│   → Symbolizes MANTHAN (churning of wisdom)                 │
+│   → Represents deliberation, education, transformation       │
+│                                                              │
+│   INNER CORE                                                 │
+│   → Shankha (conch) + flame-lamp hybrid                      │
+│   → Symbolizes PRAYOGSHALA (sacred experiment)              │
+│   → Conch = call to awakening, Flame = knowledge/light       │
+│                                                              │
+│   FOUNDATION MOTIF                                           │
+│   → Subtle banyan tree silhouette                            │
+│   → Represents rootedness and collective wisdom              │
+│   → PARISHAD emerges from deep roots                         │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ### Color Palette
-- **Primary**: Deep Blue (#1a365d) - Trust, Governance
-- **Secondary**: Saffron/Orange (#ed8936) - Energy, Sacred
-- **Accent**: Gold (#d69e2e) - Excellence, Achievement
-- **Neutral**: White, Light Gray
+| Color | Hex | Meaning | Usage |
+|-------|-----|---------|-------|
+| **Deep Blue** | #1a365d | Trust, Governance | Primary background, text |
+| **Saffron/Orange** | #ed8936 | Energy, Sacred | Accents, CTAs, highlights |
+| **Gold** | #d69e2e | Excellence, Achievement | Success indicators, premium elements |
+| **White** | #ffffff | Purity, Clarity | Backgrounds, text on dark |
+| **Light Gray** | #f7fafc | Neutrality | Subtle backgrounds |
 
 ### Typography
-- Bengali: Hind Siliguri or similar
-- Hindi: Noto Sans Devanagari
-- English: Inter or similar sans-serif
+- **Bengali**: Hind Siliguri or Noto Sans Bengali
+- **Hindi**: Noto Sans Devanagari
+- **English**: Inter or similar sans-serif
+- **Hierarchy**: Bold for headings, Regular for body, consistent sizing
 
 ---
 
