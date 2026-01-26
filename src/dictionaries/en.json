@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Dharma-Parayan Ganatantrik Parishad - Not Party, We Want Ministers",
-    "description": "Rajya-Manthan: 100-Day Voter Education Campaign for West Bengal Assembly Elections 2026"
+    "title": "Dharma-Parayan Ganatantrik Movement - Your Vote. Your Minister.",
+    "description": "Rajya-Manthan: 100-Day Voter Education Prayog for West Bengal Assembly Elections 2026"
   },
   "nav": {
     "home": "Home",
@@ -27,7 +27,7 @@
     "meaning": "Prayog (प्रयोग/প্রয়োগ) means 'experiment' or 'application' - the practical test of an idea",
     "description": "For the first time in Indian democratic history, we're testing a revolutionary hypothesis: What if voters evaluated candidates as potential ministers, not as party representatives?",
     "hypothesis": "The Hypothesis",
-    "hypothesisText": "When voters understand that their MLA could become one of 54 ministers who run the state, they will demand competence and character, not just party loyalty.",
+    "hypothesisText": "When voters understand that their MLA could become one of 54 ministers who run the state, they will give their party the best hands to serve them.",
     "experiment": "The Experiment",
     "experimentText": "100 days of mass education across West Bengal, teaching citizens how governance actually works and empowering them to evaluate candidates as future ministers.",
     "pillars": {
@@ -193,8 +193,8 @@
     "instagram": "Instagram"
   },
   "footer": {
-    "tagline": "Information for you. Decision is yours.",
-    "taglineBengali": "তথ্য জানুন। সিদ্ধান্ত নিন।",
+    "tagline": "Your Vote. Your Minister.",
+    "taglineBengali": "আপনার ভোট, আপনার মন্ত্রী।",
     "disclaimer": "Dharma-Parayan Ganatantrik Parishad is not affiliated with any political party or candidate. We only provide information - the decision is yours.",
     "copyright": "2026 Dharma-Parayan Ganatantrik Parishad. An initiative of KarmYog for 21st Century."
   },
@@ -204,7 +204,7 @@
     "description": "This is not about choosing parties. It's about selecting who will BE your minister. Evaluate candidates based on competence and character for specific ministerial roles.",
     "howItWorks": "How Minister Selection Works",
     "step1Title": "Understand Ministries",
-    "step1": "Learn what each of the 44 ministries does and how they affect your daily life",
+    "step1": "Learn what each of the 54 departments does and how they affect your daily life - health, education, roads, water, electricity",
     "step2Title": "Evaluate Candidates",
     "step2": "Assess if your constituency's candidates have the competence to be ministers",
     "step3Title": "Make Informed Choice",
@@ -236,7 +236,7 @@
     "coreExplanation": "We teach voters a revolutionary truth: Parties don't run hospitals or build roads — Ministers do. A state is run by its Council of Ministers, not by party symbols. When you vote, you're actually selecting who will BE your minister. This changes everything about how you should evaluate candidates.",
 
     "keyPoint1Title": "Ministers Run the State",
-    "keyPoint1": "44 Ministers control your daily life - from healthcare to roads to education. Your MLA could become one of them.",
+    "keyPoint1": "54 Ministers control your daily life - from healthcare to roads to education. Your MLA could become one of them.",
     "keyPoint2Title": "Evaluate Candidates, Not Parties",
     "keyPoint2": "Ask: Is this candidate capable of being a minister? Do they have the competence and character to govern?",
     "keyPoint3Title": "Informed Voting = Better Governance",
@@ -248,7 +248,7 @@
     "wrongWayDesc": "Voters look at party symbols, listen to rallies, vote based on loyalty or anger. They don't know what their MLA will actually DO if elected. Result: Incompetent people become ministers.",
     "rightWay": "The Parishad Way",
     "rightWayDesc": "Voters learn what each ministry does, understand how governance works, evaluate if their candidate could be a competent minister. Result: Better ministers, better governance.",
-    "paradigmQuote": "Parties don't run hospitals or build roads — Ministers do. So evaluate ministers, not party symbols.",
+    "paradigmQuote": "Give your Party the best hands to serve you.",
 
     "aiAdvantageTitle": "Why AI Changes Everything",
     "aiAdvantageSubtitle": "For the first time, technology makes mass voter education affordable",

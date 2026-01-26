@@ -79,7 +79,7 @@ export default function Header({ lang, dict }: HeaderProps) {
             </div>
             <div className="hidden sm:block">
               <span className="font-bold text-blue-900 text-xl tracking-tight">পরিষদ</span>
-              <span className="text-xs text-orange-500 block font-medium">দল নয়, মন্ত্রী চাই</span>
+              <span className="text-xs text-orange-500 block font-medium">আপনার ভোট, আপনার মন্ত্রী</span>
             </div>
           </Link>
 
