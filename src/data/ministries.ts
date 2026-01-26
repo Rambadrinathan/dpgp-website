@@ -2,6 +2,11 @@ export interface MinistryDetail {
   id: string;
   icon: string;
   category: 'top10' | 'other';
+  minister: {
+    name: string;
+    email: string;
+    type: 'CM' | 'MIC' | 'MoS-IC' | 'MoS'; // CM=Chief Minister, MIC=Minister-in-Charge, MoS-IC=Minister of State with Independent Charge, MoS=Minister of State
+  };
   name: {
     en: string;
     hi: string;
@@ -44,6 +49,11 @@ export const ministries: MinistryDetail[] = [
     id: 'health',
     icon: '🏥',
     category: 'top10',
+    minister: {
+      name: 'Mamata Banerjee',
+      email: 'cm-wb@nic.in',
+      type: 'CM'
+    },
     name: {
       en: 'Health & Family Welfare',
       hi: 'स्वास्थ्य एवं परिवार कल्याण',
@@ -148,6 +158,11 @@ export const ministries: MinistryDetail[] = [
     id: 'education',
     icon: '📚',
     category: 'top10',
+    minister: {
+      name: 'Sri Bratya Basu',
+      email: 'edu.min.wb@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'School Education',
       hi: 'विद्यालय शिक्षा',
@@ -252,6 +267,11 @@ export const ministries: MinistryDetail[] = [
     id: 'home',
     icon: '🛡️',
     category: 'top10',
+    minister: {
+      name: 'Mamata Banerjee',
+      email: 'cm-wb@nic.in',
+      type: 'CM'
+    },
     name: {
       en: 'Home & Hill Affairs',
       hi: 'गृह एवं पर्वतीय मामले',
@@ -356,6 +376,11 @@ export const ministries: MinistryDetail[] = [
     id: 'pwd',
     icon: '🛣️',
     category: 'top10',
+    minister: {
+      name: 'Sri Pulak Roy',
+      email: 'micpwd@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'Public Works Department',
       hi: 'लोक निर्माण विभाग',
@@ -460,6 +485,11 @@ export const ministries: MinistryDetail[] = [
     id: 'panchayat',
     icon: '🏘️',
     category: 'top10',
+    minister: {
+      name: 'Sri Pradip Kr. Mazumdar',
+      email: 'micprd2022@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'Panchayat & Rural Development',
       hi: 'पंचायत एवं ग्रामीण विकास',
@@ -564,6 +594,11 @@ export const ministries: MinistryDetail[] = [
     id: 'urban',
     icon: '🏙️',
     category: 'top10',
+    minister: {
+      name: 'Janab Firhad Hakim',
+      email: 'micmaudwb@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'Urban Development & Municipal Affairs',
       hi: 'शहरी विकास एवं नगरपालिका मामले',
@@ -668,6 +703,11 @@ export const ministries: MinistryDetail[] = [
     id: 'agriculture',
     icon: '🌾',
     category: 'top10',
+    minister: {
+      name: 'Sri Sobhandeb Chattopadhyay',
+      email: 'micagriwb@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'Agriculture',
       hi: 'कृषि',
@@ -772,6 +812,11 @@ export const ministries: MinistryDetail[] = [
     id: 'food',
     icon: '🍚',
     category: 'top10',
+    minister: {
+      name: 'Sri Rathin Ghosh',
+      email: 'micfoodgovtwb@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'Food & Supplies',
       hi: 'खाद्य एवं आपूर्ति',
@@ -876,6 +921,11 @@ export const ministries: MinistryDetail[] = [
     id: 'power',
     icon: '⚡',
     category: 'top10',
+    minister: {
+      name: 'Sri Aroop Biswas',
+      email: 'micpowerwb1@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'Power & Non-Conventional Energy',
       hi: 'बिजली एवं गैर-पारंपरिक ऊर्जा',
@@ -980,6 +1030,11 @@ export const ministries: MinistryDetail[] = [
     id: 'transport',
     icon: '🚌',
     category: 'top10',
+    minister: {
+      name: 'Sri Snehasis Chakraborty',
+      email: 'pstomictransportwb@gmail.com',
+      type: 'MIC'
+    },
     name: {
       en: 'Transport',
       hi: 'परिवहन',
