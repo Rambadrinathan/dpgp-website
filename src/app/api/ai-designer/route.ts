@@ -1,22 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
+const AI_MODEL = process.env.AI_MODEL || 'claude-sonnet-4-20250514';
 
-export async function POST(request: NextRequest) {
-  try {
-    const { sectionHtml, sectionStyles, prompt, sectionId } = await request.json();
-
-    // Get API key from environment or request header
-    const apiKey = process.env.ANTHROPIC_API_KEY || request.headers.get('x-api-key');
-
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: 'API key not configured. Set ANTHROPIC_API_KEY in environment or pass via x-api-key header.' },
-        { status: 401 }
-      );
-    }
-
-    const systemPrompt = `You are an expert web designer AI assistant. Your job is to modify website sections based on user requests.
+const DESIGNER_SYSTEM_PROMPT = `You are an expert web designer AI assistant. Your job is to modify website sections based on user requests.
 
 You will receive:
 1. The current HTML structure of a section
@@ -55,6 +42,20 @@ Common Tailwind classes for reference:
 - Shadows: shadow-{sm/md/lg/xl/2xl}
 - Effects: opacity-{0-100}, blur-{sm/md/lg/xl}`;
 
+export async function POST(request: NextRequest) {
+  try {
+    const { sectionHtml, sectionStyles, prompt, sectionId } = await request.json();
+
+    // Get API key from environment or request header
+    const apiKey = process.env.ANTHROPIC_API_KEY || request.headers.get('x-api-key');
+
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'API key not configured. Set ANTHROPIC_API_KEY in environment or pass via x-api-key header.' },
+        { status: 401 }
+      );
+    }
+
     const userMessage = `Section ID: ${sectionId}
 
 Current HTML structure:
@@ -76,9 +77,9 @@ Please provide the JSON response with style changes to apply.`;
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: AI_MODEL,
         max_tokens: 2048,
-        system: systemPrompt,
+        system: DESIGNER_SYSTEM_PROMPT,
         messages: [
           {
             role: 'user',
