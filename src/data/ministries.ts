@@ -1137,10 +1137,3 @@ export const ministries: MinistryDetail[] = [
   }
 ];
 
-export const getMinistryById = (id: string): MinistryDetail | undefined => {
-  return ministries.find(m => m.id === id);
-};
-
-export const getTop10Ministries = (): MinistryDetail[] => {
-  return ministries.filter(m => m.category === 'top10');
-};

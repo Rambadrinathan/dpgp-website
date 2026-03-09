@@ -725,18 +725,3 @@ export const categoryLabels = {
   }
 };
 
-// Get departments by category
-export function getDepartmentsByCategory(category: Department['category']): Department[] {
-  return departments.filter(d => d.category === category);
-}
-
-// Get unique ministers
-export function getUniqueMinistersCount(): number {
-  const ministers = new Set<string>();
-  departments.forEach(d => {
-    if (d.ministerInCharge) ministers.add(d.ministerInCharge.name);
-    if (d.mosIndependent) ministers.add(d.mosIndependent.name);
-    if (d.mos) ministers.add(d.mos.name);
-  });
-  return ministers.size;
-}
